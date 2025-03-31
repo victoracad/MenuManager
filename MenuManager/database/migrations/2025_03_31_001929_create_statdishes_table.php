@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dishes', function (Blueprint $table) {
+        Schema::create('statdishes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->json('images');
-            $table->text('description')->nullable()->default('Sem descrição');
-            $table->float('amount')->nullable()->default(00.00);
-            $table->string('type');    
+            $table->integer('views')->unsigned()->nullable()->default(0);
+            $table->integer('shares')->unsigned()->nullable()->default(0);
+            $table->foreignId('dishes_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dishes');
+        Schema::dropIfExists('statdishes');
     }
 };

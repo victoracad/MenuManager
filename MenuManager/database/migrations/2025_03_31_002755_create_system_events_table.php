@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dishes', function (Blueprint $table) {
+        Schema::create('system_events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->json('images');
-            $table->text('description')->nullable()->default('Sem descrição');
-            $table->float('amount')->nullable()->default(00.00);
-            $table->string('type');    
+            $table->string('typechange', 20);
+            $table->string('tablechange', 30);
+            $table->json('update_info');
+            $table->foreignId('users_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dishes');
+        Schema::dropIfExists('system_events');
     }
 };
