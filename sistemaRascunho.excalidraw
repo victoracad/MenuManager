@@ -1749,8 +1749,8 @@
     {
       "id": "9149oC-E7-tdD5QFXIwdk",
       "type": "rectangle",
-      "x": 2845.766022021592,
-      "y": 263.08109080375266,
+      "x": 2835.766022021592,
+      "y": 260.58109080375266,
       "width": 191.89088316819502,
       "height": 60.44562819798148,
       "angle": 0,
@@ -1768,8 +1768,8 @@
         "type": 3
       },
       "seed": 1181499042,
-      "version": 361,
-      "versionNonce": 277700834,
+      "version": 396,
+      "versionNonce": 1404502713,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1781,15 +1781,15 @@
           "type": "arrow"
         }
       ],
-      "updated": 1743315873454,
+      "updated": 1743392116639,
       "link": null,
       "locked": false
     },
     {
       "id": "lovKH0GnvNHenfsLOtmAC",
       "type": "text",
-      "x": 2890.701507245826,
-      "y": 280.8039049027434,
+      "x": 2880.701507245826,
+      "y": 278.3039049027434,
       "width": 102.01991271972656,
       "height": 25,
       "angle": 0,
@@ -1805,11 +1805,11 @@
       "index": "aV",
       "roundness": null,
       "seed": 306204194,
-      "version": 191,
-      "versionNonce": 1941107874,
+      "version": 226,
+      "versionNonce": 1729643417,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1743315873454,
+      "updated": 1743392116639,
       "link": null,
       "locked": false,
       "text": "Postagens",
@@ -2061,10 +2061,10 @@
     {
       "id": "QrysOKy9bsD6edGdDGTCm",
       "type": "arrow",
-      "x": 2943.4561537009586,
-      "y": 324.2986052883031,
-      "width": 4.513631218118462,
-      "height": 64.60088756405577,
+      "x": 2936.1054295305553,
+      "y": 321.7986052883031,
+      "width": 0.10213635801028431,
+      "height": 67.10088756405577,
       "angle": 0,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -2080,11 +2080,11 @@
         "type": 2
       },
       "seed": 2049287522,
-      "version": 192,
-      "versionNonce": 1282412642,
+      "version": 227,
+      "versionNonce": 39741561,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1743315873454,
+      "updated": 1743392116639,
       "link": null,
       "locked": false,
       "points": [
@@ -2093,8 +2093,8 @@
           0
         ],
         [
-          -4.513631218118462,
-          64.60088756405577
+          0.10213635801028431,
+          67.10088756405577
         ]
       ],
       "lastCommittedPoint": null,
@@ -3763,7 +3763,7 @@
     "gridSize": 20,
     "gridStep": 5,
     "gridModeEnabled": false,
-    "viewBackgroundColor": "00000"
+    "viewBackgroundColor": "#ffffff"
   },
   "files": {}
 }

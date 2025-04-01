@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DishController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,8 +12,13 @@ Route::get('/', function () {
 Route::get('/admin/login', [PagesController::class, 'login_page'])->name('login');
 Route::get('/admin/dashboard', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/admin/pratos', [PagesController::class, 'dishes_page'])->name('dishes.page')->middleware('auth');
+Route::get('/admin/criarPrato', [PagesController::class, 'createDish_page'])->name('createDish.page')->middleware('auth');
+Route::get('/admin/category/{cat}', [PagesController::class, 'category_page'])->name('category.page')->middleware('auth');
+Route::get('/admin/editarPrato/{dish_id}', [PagesController::class, 'editDish_page'])->name('editDish.page')->middleware('auth');
 
 
 /**ACTIONS*/
 Route::post('/admin/login_action', [AuthController::class, 'login'])->name('login.action');
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/admin/createDish_action', [DishController::class, 'createDish'])->name('createDish.action')->middleware('auth');
+Route::post('/admin/editDish_action/{dish_id}', [DishController::class, 'updateDish'])->name('updateDish.action')->middleware('auth');

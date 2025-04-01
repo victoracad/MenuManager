@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('images');
+            $table->json('images')->default('default.png');
             $table->text('description')->nullable()->default('Sem descrição');
-            $table->float('amount')->nullable()->default(00.00);
+            $table->float('price')->nullable()->default(00.00);
+            $table->integer('numMenu')->unsigned();
             $table->string('type');    
             $table->timestamps();
         });

@@ -9,7 +9,7 @@
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
-<body>
+<body class="flex justify-center items-center h-lvh">
     @yield('main')
 </body>
 </html>
