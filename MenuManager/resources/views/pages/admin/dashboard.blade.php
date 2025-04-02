@@ -15,10 +15,10 @@
         <h1>funções</h1>
         <div class="flex flex-col text-blue-500">
             <a class="border" href="{{ route('dishes.page')}}">Pratos</a>
-            <a class="border" href="">Users</a>
+            <a class="border" href="{{ route('users.page')}}">Users</a>
             <a class="border" href="">Postagens</a>
             <a class="border" href="">Anunciantes</a>
-            <a class="border" href="">Status</a>
+            <a class="border" href="{{ route('status.page')}}">Status</a>
         </div>
     </div>
  </section>

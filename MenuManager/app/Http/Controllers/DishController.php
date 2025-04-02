@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dish;
+use App\Models\User;
 use App\Models\Statdish;
 use App\Models\Systemevent;
 use Illuminate\Http\Request;

@@ -14,16 +14,16 @@
         <label for="">Selecione a Categoria</label>
         <div>
             <label>
-                <input type="radio" name="type" value="Carne_Bovina"> Carnes
+                <input type="radio" name="type" value="Carne_Bovina" required> Carnes
             </label>
             <label>
-                <input type="radio" name="type" value="Carne_Suina"> Carnes
+                <input type="radio" name="type" value="Carne_Suina" required> Carnes
             </label>
             <label>
-                <input type="radio" name="type" value="Frango"> Frango
+                <input type="radio" name="type" value="Frango" required> Frango
             </label>
             <label>
-                <input type="radio" name="type" value="Bebidas"> Bebidas
+                <input type="radio" name="type" value="Bebidas" required> Bebidas
             </label>
         </div>
         <label for="">Número do menu</label>
