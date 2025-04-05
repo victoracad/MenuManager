@@ -1,6 +1,6 @@
-@extends('layouts.header')
+@extends('layouts.main')
 @section('title', 'Editar prato')
-@section('main')
+@section('content')
 <section class="border flex flex-col">
     <h1>Aqui você visualiza o seu prato</h1>
     <div class="flex flex-col border">

@@ -1,22 +1,39 @@
-@extends('layouts.header')
+@extends('layouts.main')
 @section('title', 'Categorias')
-@section('main')
- <section class="border flex flex-col p-10">
-    <h1>Todos os pratos da categoria: {{$cat}}</h1>
+@section('content')
+ <section class="flex flex-col gap-5 shadow-2xl rounded-2xl p-5">
+    <h1 class="text-5xl font-bold flex justify-center">{{$cat}}</h1>
 
     @foreach ($dishes as $dish)
-        <a href="{{ route('dish.page', ['dish_id' => $dish->id]) }}">
-            <div class="flex flex-col border">
-                @foreach (json_decode($dish->images, true) as $image)
-                    <img src="/images/imagesdish/{{$image}}" alt="" class="w-40 h-40">
-                @endforeach
-                <span>nome{{$dish->name}}</span>
-                <span>Descrição{{$dish->description}}</span>
-                <span>preço{{$dish->price}}</span>
-                <span>Numero do prato{{$dish->numMenu}}</span>
-                <a href="{{ route('editDish.page', ['dish_id'=>$dish->id]) }}">Editar prato</a>
+    <div class="flex rounded-2xl bg-neutral-50 shadow-2xl">
+        <a class="flex w-[80%]"  href="{{ route('dish.page', ['dish_id' => $dish->id]) }}">
+            <div class="relative w-[30%] h-50 rounded-l-2xl overflow-hidden">
+                <img src="/images/imagesdish/{{json_decode($dish->images, true)['image_1'];}}" alt="" class="object-cover w-full h-full">
+                <span class="absolute bottom-0 w-7 h-7 text-white font-bold bg-red-500 flex justify-center items-center">{{$dish->numMenu}}</span>
             </div>
+            <div class="grid grid-rows-10 w-[70%] p-4">
+                <h2 class="flex items-center font-bold row-span-4 text-3xl">{{$dish->name}}</h2>
+                <span class="row-span-4">{{$dish->description}}</span>
+                <span class="row-span-2 text-green-700 font-bold text-2xl">R${{$dish->price}}</span>
+            </div>   
         </a>
+        <div class="w-[20%] flex flex-col items-center justify-center gap-5">
+            <a class="text-white flex justify-center items-center rounded-full p-2 bg-blue-400 hover:bg-blue-500" href="{{ route('editDish.page', ['dish_id'=>$dish->id]) }}"><i class="material-icons " style="font-size: 30px">edit</i> </a>
+            <!-- From Uiverse.io by TimTrayler -->
+            <div class="flex flex-col gap-1 p-1 items-center justify-center">
+
+                <label class="switch">
+                    <input @if ($dish->status == 'Disponível')
+                    checked 
+                    @endif class="change-status"  data-id="{{ $dish->id }}"  type="checkbox" name="status" value="Disponível">
+                    <span class="slider"></span>
+                </label>
+
+                <span id="dishSpanCheckbox-{{$dish->id}}" class="text-2xl font-bold">{{$dish->status}}</span>
+            </div> 
+
+        </div>
+    </div>
     @endforeach
  </section>
     

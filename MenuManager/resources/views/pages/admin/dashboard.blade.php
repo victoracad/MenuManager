@@ -1,16 +1,10 @@
-@extends('layouts.header')
+@extends('layouts.main')
 @section('title', 'Bem vindo a dashboard')
-@section('main')
+@section('content')
  <section class="border flex flex-col p-10">
     <h1>Bem vindo a dashboard</h1>
-    <span>usuário conectado: {{$user->username}}</span>
-    <form action="{{ route('logout')}}" method="POST">
-        @csrf
-        <input class="border cursor-pointer w-full" type="submit" value="Sair">
-    </form>
-    @if (session('sucess'))
-        <p class="sucess">{{session('sucess')}}</p>
-    @endif
+    <span>usuário conectado: {{$userauth->username}}</span>
+    
     <div>
         <h1>funções</h1>
         <div class="flex flex-col text-blue-500">

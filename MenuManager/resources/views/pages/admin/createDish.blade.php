@@ -1,15 +1,11 @@
-@extends('layouts.header')
+@extends('layouts.main')
 @section('title', 'Bem vindo a dashboard')
-@section('main')
-
-@if (session('sucess'))
-    <div class="flex border">
-        <p>{{session('sucess')}}</p>
-    </div>
-@endif
+@section('content')
+<section>
+    <h1 class="text-5xl">Crie um novo prato!</h1>
     <form class="flex flex-col border-2 border-blue-500" action="{{ route('createDish.action') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <h1>Crie um novo prato!</h1>
+        
         <label for="">Nome do prato</label>
         <input class="border" type="text" name="name" id="name" required>
         <label for="">Descrição do prato</label>
@@ -37,4 +33,6 @@
         <input class="border" multiple accept="image/*" type="file" name="image[]" id="image" required>
         <input type="submit" value="Criar prato">
     </form>
+</section>
+    
 @endsection

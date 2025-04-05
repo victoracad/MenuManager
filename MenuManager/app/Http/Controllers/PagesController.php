@@ -6,6 +6,8 @@ use App\Models\Dish;
 use App\Models\User;
 use App\Models\Systemevent;
 
+use Stichoza\GoogleTranslate\GoogleTranslate;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -16,35 +18,35 @@ class PagesController extends Controller
         return view('pages.admin.login');
     }
     public function dashboard(){
-        return view('pages.admin.dashboard', ['user' => Auth::user()]);
+        return view('pages.admin.dashboard', ['userauth' => Auth::user()]);
     }
     public function dishes_page(){
-        return view('pages.admin.dishescategorys');
+        return view('pages.admin.dishescategorys', ['userauth' => Auth::user()]);
     }
     public function createDish_page(){
-        return view('pages.admin.createDish');
+        return view('pages.admin.createDish', ['userauth' => Auth::user()]);
     }
     public function category_page($cat){
         $dishes = Dish::where('type', $cat)->limit(3)->get();
-        return view('pages.admin.categorys.category', ['dishes' => $dishes, 'cat' => $cat]);
+        return view('pages.admin.categorys.category', ['dishes' => $dishes, 'cat' => $cat, 'userauth' => Auth::user()]);
     }
     public function editDish_page($dish_id){
         $dish = Dish::where('id', $dish_id)->first();
-        return view('pages.admin.editDish', ['dish' => $dish]);
+        return view('pages.admin.editDish', ['dish' => $dish, 'userauth' => Auth::user()]);
     }
     public function dish_page($dish_id){
         $dish = Dish::where('id', $dish_id)->first();
-        return view('pages.admin.dish', ['dish' => $dish]);
+        return view('pages.admin.dish', ['dish' => $dish, 'userauth' => Auth::user()]);
     }
     public function users_page(){
         $users = User::all();
-        return view('pages.admin.users', ['users' => $users]);
+        return view('pages.admin.users', ['users' => $users, 'userauth' => Auth::user()]);
     }
     public function createuser_page(){
-        return view('pages.admin.createUser');
+        return view('pages.admin.createUser', ['userauth' => Auth::user()]);
     }
     public function status_page(){
         $Systemevents = Systemevent::limit(5)->get();
-        return view('pages.admin.status', ['Systemevents' => $Systemevents]);
+        return view('pages.admin.status', ['Systemevents' => $Systemevents, 'userauth' => Auth::user()]);
     }
 }

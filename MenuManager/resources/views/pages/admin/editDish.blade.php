@@ -1,36 +1,76 @@
-@extends('layouts.header')
+@extends('layouts.main')
 @section('title', 'Editar prato')
-@section('main')
-<section class="border flex flex-col">
-    <form class="flex flex-col border-2 border-blue-500" action="{{ route('updateDish.action', ['dish_id'=>$dish->id]) }}" method="POST" enctype="multipart/form-data">
+@section('content')
+<section class="flex flex-col p-3 shadow-2xl rounded-2xl">
+    <h1 class="text-5xl flex justify-center font-bold">Edite seu prato!</h1>
+    <form class="flex flex-col gap-5" action="{{ route('updateDish.action', ['dish_id'=>$dish->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <h1>Crie um novo prato!</h1>
-        <label for="">Nome do prato</label>
-        <input class="border" type="text" name="name" id="name" value="{{$dish->name}}" required>
-        <label for="">Descrição do prato</label>
-        <input class="border" type="text" name="description" id="description" value="{{$dish->description}}" required>
-        <label for="">Preço do prato</label>
-        <input class="border" type="number" name="price" id="price" value="{{$dish->price}}" required>
-        <label for="">Selecione a Categoria</label>
-        <div>
-            <label>
-                <input type="radio" name="type" value="Carne_Bovina" required> Carnes
-            </label>
-            <label>
-                <input type="radio" name="type" value="Carne_Suina" required> Carnes
-            </label>
-            <label>
-                <input type="radio" name="type" value="Frango" required> Frango
-            </label>
-            <label>
-                <input type="radio" name="type" value="Bebidas" required> Bebidas
-            </label>
+        <div class="flex flex-col">
+            <label class="text-3xl font-bold" for="name">Nome do prato</label>
+            <input class="border h-12 rounded-2xl p-2" type="text" name="name" id="name" value="{{$dish->name}}" required>
         </div>
-        <label for="">Número do menu</label>
-        <input class="border" type="number" name="numMenu" id="numMenu" value="{{$dish->numMenu}}" required>
-        <label for="file">Imagens do prato</label>
-        <input class="border" multiple accept="image/*" type="file" name="image[]" id="image" required>
-        <input type="submit" value="Criar prato">
+        
+        <div class="flex flex-col">
+            <label class="text-3xl font-bold" for="">Descrição do prato</label>
+            <input class="border h-12 rounded-2xl p-2" type="text" name="description" id="description" value="{{$dish->description}}" required>
+        </div>
+
+        <div class="flex gap-5">
+            <div class=" w-[33%]">
+                <label class="text-3xl font-bold" for="price">Preço do prato</label>
+                <div class="relative rounded-2xl">
+                    <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-2xl">R$</span>
+                    <input id="price" name="price" type="number" step="0.01" 
+                    class="pl-10 border text-2xl rounded-2xl h-12 w-full  focus:outline-none focus:ring focus:ring-blue-300  appearance-none" 
+                    placeholder="0.00" value="{{$dish->price}}">
+                </div>
+            </div>
+            
+            <div class="w-[33%]">
+                <label class="font-bold text-3xl" for="type">Categoria</label>
+                <div>
+                    <select id="type" name="type" class="border rounded-2xl h-12 w-full text-2xl ">
+                        <option @if ($dish->type == 'Carne_Bovina')
+                            selected
+                        @endif value="Carne_Bovina">Carne Bovina</option>
+                        <option @if ($dish->type == 'Carne_Suina')
+                            selected
+                        @endif value="Carne_Suina">Carne Suína</option>
+                        <option @if ($dish->type == 'Frango')
+                            selected
+                        @endif value="Frango">Frango</option>
+                        <option value="Frango">Bebidas</option>
+                        <option value="Pratos_Feitos">Pratos Feitos</option>
+                        <option value="Porcoes">Porções</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="w-[33%]">
+                <label class="text-3xl font-bold" for="">Num. Cardápio</label>
+                <input class="border h-12 w-full rounded-2xl p-3 text-2xl" type="number" name="numMenu" id="numMenu" value="{{$dish->numMenu}}" required>
+            </div>
+        </div>
+        
+        <div class="w-full border p-2 rounded-2xl bg-gray-500 flex gap-2">
+            <div class="w-70 h-70 relative rounded-2xl overflow-hidden">
+                <img style="display: none;" onload="this.style.display='block'" id="preview_image_1" class="w-full h-full object-cover" src="/images/imagesdish/{{json_decode($dish->images, true)['image_1']}}" alt="">
+                <label class="absolute top-0 cursor-pointer" for="image_1"><i class="material-icons text-blue-400" style="font-size: 45px">edit_square</i></label>
+                <input accept="image/*" hidden type="file" name="image_1" id="image_1">
+            </div>
+
+            <div class="w-70 h-70  relative rounded-2xl overflow-hidden">
+                <img style="display: none;" onload="this.style.display='block'"  id="preview_image_2" class="w-full h-full object-cover" src="/images/@if(count((json_decode($dish->images, true))) == 1)placeholders/placeholder_image.png @else/imagesdish/{{json_decode($dish->images, true)['image_2']}}@endif"  alt="">
+                <label class="absolute top-0 cursor-pointer" for="image_2"><i class="material-icons text-blue-400" style="font-size: 45px">edit_square</i> </label>
+                <input accept="image/*" hidden type="file" name="image_2" id="image_2">
+            </div>
+        
+        </div>
+
+        <div class="flex justify-center">
+            <input class="bg-green-400 w-[50%] h-12 rounded-2xl hover:bg-green-500 cursor-pointer" type="submit" value="Editar Prato">
+        </div>
+        
     </form>
 </section>
    

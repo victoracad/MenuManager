@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('price')->nullable()->default(00.00);
             $table->integer('numMenu')->unsigned();
             $table->string('type');    
+            $table->string('status')->default('Disponível');    
             $table->timestamps();
         });
     }

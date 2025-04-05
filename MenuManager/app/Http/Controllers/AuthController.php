@@ -73,7 +73,7 @@ class AuthController extends Controller
     }
     public function deleteUser($user_id){
         $updateInfoArray = [];
-        if(Auth::user()->admin_type == 'Master' && Auth::id() != $user_id){
+        if(Auth::user()->admin_type === 'Master' && Auth::id() != $user_id){
             $updateInfoArray = [
                 'username' => User::where('id', $user_id)->first()->username,
             ];

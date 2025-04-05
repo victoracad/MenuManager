@@ -28,3 +28,4 @@ Route::post('/admin/createDish_action', [DishController::class, 'createDish'])->
 Route::post('/admin/editDish_action/{dish_id}', [DishController::class, 'updateDish'])->name('updateDish.action')->middleware('auth');
 Route::post('/admin/createUser_action', [AuthController::class, 'createUser'])->name('createUser.action')->middleware('auth');
 Route::post('/admin/deleteUser/{user_id}', [AuthController::class, 'deleteUser'])->name('deleteUser.action')->middleware('auth');
+Route::get('/admin/changeDishStatus/{dish_id}', [DishController::class, 'changeStatusDish'])->name('changeStatusDish.action')->middleware('auth');
