@@ -46,7 +46,7 @@ class PagesController extends Controller
         return view('pages.admin.createUser', ['userauth' => Auth::user()]);
     }
     public function status_page(){
-        $Systemevents = Systemevent::limit(5)->get();
+        $Systemevents = Systemevent::orderBy('id', 'desc')->limit(10)->get();
         return view('pages.admin.status', ['Systemevents' => $Systemevents, 'userauth' => Auth::user()]);
     }
 }

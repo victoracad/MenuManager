@@ -14,7 +14,7 @@
             <div class="flex gap-5">
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Carne_Bovina']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/bovinacat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/bovinacat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
                         <span>
@@ -27,7 +27,7 @@
                 </a>
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Carne_Suina']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/suinocat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/suinocat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
                         <span>
@@ -43,7 +43,7 @@
             <div class="flex gap-5">
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Frango']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/frangocat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/frangocat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center font-bold">
                         <span>
@@ -53,7 +53,7 @@
                 </a>
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Pratos_Feitos']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/pratofeitocat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/pratofeitocat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center font-bold">
                         <span>
@@ -69,7 +69,7 @@
             <div class="flex gap-5">
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Bebidas']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/bebidascat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/bebidascat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
                         <span>
@@ -79,7 +79,7 @@
                 </a>
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Porcoes']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/porcoescat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/porcoescat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
                         <span>
@@ -90,9 +90,9 @@
             </div>
 
             <div class="flex justify-center">
-                <a class="flex rounded-2xl overflow-hidden w-[60%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Carne_Bovina']) }}">
+                <a class="flex rounded-2xl overflow-hidden w-[60%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Sobremesas']) }}">
                     <div class="w-[50%]">
-                        <img class="object-cover w-full h-full" src="/images/placeholders/sobremesascat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/sobremesascat.jpg" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
                         <span>

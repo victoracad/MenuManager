@@ -39,9 +39,18 @@
                         <option @if ($dish->type == 'Frango')
                             selected
                         @endif value="Frango">Frango</option>
-                        <option value="Frango">Bebidas</option>
-                        <option value="Pratos_Feitos">Pratos Feitos</option>
-                        <option value="Porcoes">Porções</option>
+                        <option @if ($dish->type == 'Bebidas')
+                            selected
+                        @endif value="Bebidas">Bebidas</option>
+                        <option @if ($dish->type == 'Pratos_Feitos')
+                            selected
+                        @endif value="Pratos_Feitos">Pratos Feitos</option>
+                        <option @if ($dish->type == 'Porcoes')
+                            selected
+                        @endif value="Porcoes">Porções</option>
+                        <option @if ($dish->type == 'Sobremesas')
+                            selected
+                        @endif value="Sobremesas">Porções</option>
                     </select>
                 </div>
             </div>
@@ -52,23 +61,31 @@
             </div>
         </div>
         
-        <div class="w-full border p-2 rounded-2xl bg-gray-500 flex gap-2">
-            <div class="w-70 h-70 relative rounded-2xl overflow-hidden">
+        <div class="w-full p-2 rounded-2xl bg-gray-200 flex gap-2">
+            <div class=" w-[50%] max-h-100 relative rounded-2xl overflow-hidden">
                 <img style="display: none;" onload="this.style.display='block'" id="preview_image_1" class="w-full h-full object-cover" src="/images/imagesdish/{{json_decode($dish->images, true)['image_1']}}" alt="">
                 <label class="absolute top-0 cursor-pointer" for="image_1"><i class="material-icons text-blue-400" style="font-size: 45px">edit_square</i></label>
                 <input accept="image/*" hidden type="file" name="image_1" id="image_1">
             </div>
 
-            <div class="w-70 h-70  relative rounded-2xl overflow-hidden">
+            <div class="w-[50%] max-h-100  relative rounded-2xl overflow-hidden">
                 <img style="display: none;" onload="this.style.display='block'"  id="preview_image_2" class="w-full h-full object-cover" src="/images/@if(count((json_decode($dish->images, true))) == 1)placeholders/placeholder_image.png @else/imagesdish/{{json_decode($dish->images, true)['image_2']}}@endif"  alt="">
                 <label class="absolute top-0 cursor-pointer" for="image_2"><i class="material-icons text-blue-400" style="font-size: 45px">edit_square</i> </label>
                 <input accept="image/*" hidden type="file" name="image_2" id="image_2">
             </div>
         
         </div>
+        <div class="flex text-2xl font-bold">
+            <span class="w-[50%] flex items-center justify-center">
+                Imagem de ilustração
+            </span>
+            <span class="w-[50%] flex items-center justify-center"> 
+                Imagem de descrição
+            </span>
+        </div>
 
         <div class="flex justify-center">
-            <input class="bg-green-400 w-[50%] h-12 rounded-2xl hover:bg-green-500 cursor-pointer" type="submit" value="Editar Prato">
+            <input class="bg-green-400 text-2xl font-bold text-white w-[50%] h-12 rounded-2xl hover:bg-green-500 cursor-pointer" type="submit" value="Editar Prato">
         </div>
         
     </form>

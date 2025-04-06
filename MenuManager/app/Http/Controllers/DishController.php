@@ -19,39 +19,82 @@ class DishController extends Controller
     }
     public function createDish(Request $request){
         $updateInfoArray = [];
-        if ($request->hasFile('image')) { 
-            $i = 1;
-            $imagesArray = [];
-            //$jsonString = json_encode([]);
-            foreach ($request->file('image') as $image) {
-                $imagesArray['image_' . $i] = $this->imageTreat($image, 'imagesdish/');
-                $i++;
-            }        
+
+        if ($request->hasFile('image_1')) {//Mandou a primeira imagem
+            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
+            $imagesJson = json_encode($images);
+
+            $dish = Dish::create([
+                'name' => $request->name,
+                'images' => $imagesJson,
+                'description' => $request->description,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ]);
+            
+            Statdish::create([
+                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
+            ]);
+            $updateInfoArray = [
+                'name' => $request->name,
+                'images' => $imagesJson,
+                'description' => $request->description,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ];
         }
-        $imagesJson = json_encode($imagesArray);   
-        $dish = Dish::create([
-            'name' => $request->name,
-            'images' => $imagesJson,
-            'description' => $request->description,
-            'price' => $request->price,
-            'type' => $request->type,
-            'numMenu' => $request->numMenu,
-        ]);
+        if ($request->hasFile('image_2')) {//Mandou a segunda imagem
+            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+            $imagesJson = json_encode($images);
+
+            $dish = Dish::create([
+                'name' => $request->name,
+                'images' => $imagesJson,
+                'description' => $request->description,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ]);
+            
+            Statdish::create([
+                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
+            ]);
+            $updateInfoArray = [
+                'name' => $request->name,
+                'images' => $imagesJson,
+                'description' => $request->description,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ];
+        }
+
+        if(!$request->hasFile('image_2') && !$request->hasFile('image_1')){ //Não mandou nenhuma imagem
+            $dish = Dish::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ]);
+            
+            Statdish::create([
+                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
+            ]);
+            $updateInfoArray = [
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ];
+        }
         
-        Statdish::create([
-            'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-        ]);
-        $updateInfoArray = [
-            'name' => $request->name,
-            'images' => $imagesJson,
-            'description' => $request->description,
-            'price' => $request->price,
-            'type' => $request->type,
-            'numMenu' => $request->numMenu,
-        ];
         $updateInfo = json_encode($updateInfoArray);  
         Systemevent::create([
-            'typechange' => 'create', 
+            'typechange' => 'update', 
             'tablechange' => 'dishes',
             'update_info' => $updateInfo,
             'users_id' => Auth::id(),
