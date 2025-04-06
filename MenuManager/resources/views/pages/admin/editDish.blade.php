@@ -12,7 +12,7 @@
         
         <div class="flex flex-col">
             <label class="text-3xl font-bold" for="">Descrição do prato</label>
-            <input class="border h-12 rounded-2xl p-2" type="text" name="description" id="description" value="{{$dish->description}}" required>
+            <input class="border h-12 rounded-2xl p-2" type="text" name="description" id="description" value="{{json_decode($dish->description, true)['desc_pt'];}}" required>
         </div>
 
         <div class="flex gap-5">

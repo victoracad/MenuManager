@@ -17,6 +17,35 @@ class DishController extends Controller
         $requestImage->move(public_path('images/'. $path), $imageName);
         return $imageName;
     }
+    public function apiGptTranslate($desc_pt){
+        $apiKey = "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";
+        $url = "https://api.openai.com/v1/chat/completions";
+
+        $data = [
+            "model" => "gpt-4-turbo",
+            "messages" => [
+                ["role" => "system", "content" => "Traduza a seguinte descrição de prato escrita em português brasileiro para o inglês e o espanhol. As traduções devem ser adaptativas, mantendo o sentido cultural e gastronômico sem serem literais, se for necessário, inclua um parenteses para explicar algum trecho. Retorne o resultado no seguinte formato JSON: {\"desc_pt\":\"Descrição original\",\"desc_in\":\"tradução em inglês\",\"desc_es\":\"tradução em espanhol\"}."],
+                ["role" => "user", "content" => $desc_pt]
+            ],
+            "temperature" => 0.7
+        ];
+
+        $headers = [
+            "Authorization: Bearer $apiKey",
+            "Content-Type: application/json"
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
+    }
     public function createDish(Request $request){
         $updateInfoArray = [];
 
@@ -24,10 +53,16 @@ class DishController extends Controller
             $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
             $imagesJson = json_encode($images);
 
+            //SISTEMA DE TRADUÇÃO
+            $description_lg = $this->apiGptTranslate($request->description);
+            $data = json_decode($description_lg);
+            $descriptions_lg = $data->choices[0]->message->content;
+            ////////////
+
             $dish = Dish::create([
                 'name' => $request->name,
                 'images' => $imagesJson,
-                'description' => $request->description,
+                'description' => $descriptions_lg,
                 'price' => $request->price,
                 'type' => $request->type,
                 'numMenu' => $request->numMenu,
@@ -39,7 +74,7 @@ class DishController extends Controller
             $updateInfoArray = [
                 'name' => $request->name,
                 'images' => $imagesJson,
-                'description' => $request->description,
+                'description' => $descriptions_lg,
                 'price' => $request->price,
                 'type' => $request->type,
                 'numMenu' => $request->numMenu,
@@ -49,10 +84,16 @@ class DishController extends Controller
             $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
             $imagesJson = json_encode($images);
 
+            //SISTEMA DE TRADUÇÃO
+            $description_lg = $this->apiGptTranslate($request->description);
+            $data = json_decode($description_lg);
+            $descriptions_lg = $data->choices[0]->message->content;
+            ////////////
+
             $dish = Dish::create([
                 'name' => $request->name,
                 'images' => $imagesJson,
-                'description' => $request->description,
+                'description' => $descriptions_lg,
                 'price' => $request->price,
                 'type' => $request->type,
                 'numMenu' => $request->numMenu,
@@ -64,7 +105,7 @@ class DishController extends Controller
             $updateInfoArray = [
                 'name' => $request->name,
                 'images' => $imagesJson,
-                'description' => $request->description,
+                'description' => $descriptions_lg,
                 'price' => $request->price,
                 'type' => $request->type,
                 'numMenu' => $request->numMenu,
@@ -72,9 +113,15 @@ class DishController extends Controller
         }
 
         if(!$request->hasFile('image_2') && !$request->hasFile('image_1')){ //Não mandou nenhuma imagem
+            //SISTEMA DE TRADUÇÃO
+            $description_lg = $this->apiGptTranslate($request->description);
+            $data = json_decode($description_lg);
+            $descriptions_lg = $data->choices[0]->message->content;
+            ////////////
+
             $dish = Dish::create([
                 'name' => $request->name,
-                'description' => $request->description,
+                'description' => $descriptions_lg,
                 'price' => $request->price,
                 'type' => $request->type,
                 'numMenu' => $request->numMenu,
@@ -85,7 +132,7 @@ class DishController extends Controller
             ]);
             $updateInfoArray = [
                 'name' => $request->name,
-                'description' => $request->description,
+                'description' => $descriptions_lg,
                 'price' => $request->price,
                 'type' => $request->type,
                 'numMenu' => $request->numMenu,
