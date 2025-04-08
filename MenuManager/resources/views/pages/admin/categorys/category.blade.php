@@ -7,9 +7,10 @@
     @foreach ($dishes as $dish)
     <div class="flex rounded-2xl h-60 bg-neutral-50 shadow-2xl">
         <a class="flex w-[80%]"  href="{{ route('dish.page', ['dish_id' => $dish->id]) }}">
-            <div class="relative w-[35%] h-60 rounded-l-2xl overflow-hidden ">
-                <img src="/images/imagesdish/{{json_decode($dish->images, true)['image_1'];}}" alt="" class="object-cover w-full h-full">
-                <span class="absolute bottom-0 left-0 w-7 h-7 text-white font-bold bg-red-500 flex justify-center items-center">{{$dish->numMenu}}</span>
+            <div class=" h-full flex w-[35%] justify-center items-center relative rounded-2xl overflow-hidden">
+                <img id="preview_image_2" class=" h-full flex justify-center items-center object-cover" src="/images/imagesdish/{{json_decode($dish->images, true)['image_2']}}"  alt="">
+                <input accept="image/*" hidden type="file" name="image_2" id="image_2">
+                <span class="absolute bottom-0 left-0 w-10 h-10 text-white font-bold bg-red-500 flex justify-center items-center">{{$dish->numMenu}}</span>
             </div>
             <div class="grid grid-rows-10 w-[65%] p-4">
                 <h2 class="flex items-center font-bold row-span-3 text-3xl">{{$dish->name}}</h2>

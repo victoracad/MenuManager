@@ -48,95 +48,37 @@ class DishController extends Controller
     }
     public function createDish(Request $request){
         $updateInfoArray = [];
+        if ($request->hasFile('image_1') && $request->hasFile('image_2')) {
+        $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
+        $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+        $imagesJson = json_encode($images);
+        //dd($request->description);
+        //SISTEMA DE TRADUÇÃO
+        $description_lg = $this->apiGptTranslate($request->description);
+        $data = json_decode($description_lg);
+        $descriptions_lg = $data->choices[0]->message->content;
+        ////////////
 
-        if ($request->hasFile('image_1')) {//Mandou a primeira imagem
-            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
-            $imagesJson = json_encode($images);
-
-            //SISTEMA DE TRADUÇÃO
-            $description_lg = $this->apiGptTranslate($request->description);
-            $data = json_decode($description_lg);
-            $descriptions_lg = $data->choices[0]->message->content;
-            ////////////
-
-            $dish = Dish::create([
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
-            
-            Statdish::create([
-                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
-        }
-        if ($request->hasFile('image_2')) {//Mandou a segunda imagem
-            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
-            $imagesJson = json_encode($images);
-
-            //SISTEMA DE TRADUÇÃO
-            $description_lg = $this->apiGptTranslate($request->description);
-            $data = json_decode($description_lg);
-            $descriptions_lg = $data->choices[0]->message->content;
-            ////////////
-
-            $dish = Dish::create([
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
-            
-            Statdish::create([
-                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
-        }
-
-        if(!$request->hasFile('image_2') && !$request->hasFile('image_1')){ //Não mandou nenhuma imagem
-            //SISTEMA DE TRADUÇÃO
-            $description_lg = $this->apiGptTranslate($request->description);
-            $data = json_decode($description_lg);
-            $descriptions_lg = $data->choices[0]->message->content;
-            ////////////
-
-            $dish = Dish::create([
-                'name' => $request->name,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
-            
-            Statdish::create([
-                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
+        $dish = Dish::create([
+            'name' => $request->name,
+            'images' => $imagesJson,
+            'description' => $descriptions_lg,
+            'price' => $request->price,
+            'type' => $request->type,
+            'numMenu' => $request->numMenu,
+        ]);
+        
+        Statdish::create([
+            'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
+        ]);
+        $updateInfoArray = [
+            'name' => $request->name,
+            'images' => $imagesJson,
+            'description' => $descriptions_lg,
+            'price' => $request->price,
+            'type' => $request->type,
+            'numMenu' => $request->numMenu,
+        ];
         }
         
         $updateInfo = json_encode($updateInfoArray);  
@@ -155,64 +97,173 @@ class DishController extends Controller
         $images = json_decode($dish->images, true) ?? [];
         $updateInfoArray = [];
 
-        if ($request->hasFile('image_1')) {//Mandou a primeira imagem
+        if ($request->hasFile('image_1') && !($request->hasFile('image_2'))) {//Mudou só primeira imagem
             $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
             $imagesJson = json_encode($images);
+            if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }else{//Mudou a descrição
+                //SISTEMA DE TRADUÇÃO
+                $description_lg = $this->apiGptTranslate($request->description);
+                $data = json_decode($description_lg);
+                $descriptions_lg = $data->choices[0]->message->content;
+                ////////////
 
-            Dish::where('id', $dish_id)->update([
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $request->description,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $request->description,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }
+            
         }
-        if ($request->hasFile('image_2')) {//Mandou a segunda imagem
+        if ($request->hasFile('image_2') && !($request->hasFile('image_1'))) {//Mudou só segunda imagem
             $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
             $imagesJson = json_encode($images);
+            if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }else{//Mudou a descrição
+                //SISTEMA DE TRADUÇÃO
+                $description_lg = $this->apiGptTranslate($request->description);
+                $data = json_decode($description_lg);
+                $descriptions_lg = $data->choices[0]->message->content;
+                ////////////
 
-            Dish::where('id', $dish_id)->update([
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $request->description,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $request->description,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }
+        }
+        if($request->hasFile('image_2') && ($request->hasFile('image_1'))){//Mudou as duas imagens
+            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
+            $imagesJson = json_encode($images);
+            if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }else{//Mudou a descrição
+                //SISTEMA DE TRADUÇÃO
+                $description_lg = $this->apiGptTranslate($request->description);
+                $data = json_decode($description_lg);
+                $descriptions_lg = $data->choices[0]->message->content;
+                ////////////
+
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }
         }
 
-        if(!$request->hasFile('image_2') && !$request->hasFile('image_1')){ //Não mandou nenhuma imagem
-            Dish::where('id', $dish_id)->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
+        if(!$request->hasFile('image_2') && !$request->hasFile('image_1')){ //Não mudou nenhuma imagem
+            if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }else{//Mudou a descrição
+                //SISTEMA DE TRADUÇÃO
+                $description_lg = $this->apiGptTranslate($request->description);
+                $data = json_decode($description_lg);
+                $descriptions_lg = $data->choices[0]->message->content;
+                ////////////
+                Dish::where('id', $dish_id)->update([
+                    'name' => $request->name,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }
         }
         
         $updateInfo = json_encode($updateInfoArray);  
