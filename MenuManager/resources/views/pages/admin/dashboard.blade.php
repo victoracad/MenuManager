@@ -2,7 +2,8 @@
 @section('title', 'Bem vindo a dashboard')
 @section('content')
  <section class="border flex flex-col p-10">
-    <h1>Bem vindo a dashboard</h1>
+    <h1>{{ __('messages.welcome') }}</h1>
+    <p>Idioma atual: {{ app()->getLocale() }}</p>
     <span>usuário conectado: {{$userauth->username}}</span>
     
     <div>

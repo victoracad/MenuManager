@@ -5,12 +5,16 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DishController;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+
 Route::get('/', function () {
     return view('welcome');
 });
 /**PAGES*/
 Route::get('/admin/login', [PagesController::class, 'login_page'])->name('login');
-Route::get('/admin/dashboard', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+Route::get('/admin/dashboard/{locale}', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/admin/pratos', [PagesController::class, 'dishes_page'])->name('dishes.page')->middleware('auth');
 Route::get('/admin/criarPrato', [PagesController::class, 'createDish_page'])->name('createDish.page')->middleware('auth');
 Route::get('/admin/category/{cat}', [PagesController::class, 'category_page'])->name('category.page')->middleware('auth');

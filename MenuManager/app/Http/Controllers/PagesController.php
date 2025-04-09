@@ -11,13 +11,18 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class PagesController extends Controller
 {
     public function login_page(){
         return view('pages.admin.login');
     }
-    public function dashboard(){
+    public function dashboard($locale){
+        //dd($locale);
+        App::setLocale($locale);
         return view('pages.admin.dashboard', ['userauth' => Auth::user()]);
     }
     public function dishes_page(){

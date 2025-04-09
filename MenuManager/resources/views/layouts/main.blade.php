@@ -3,12 +3,12 @@
  <section class=" flex flex-col justify-center items-center p-10 w-full h-lvh">
    <nav class="fixed flex flex-col h-full w-auto items-center left-0 p-5 gap-30 bg-[#D32F2F] text-white text-2xl">
     <div class="w-40">
-        <a href="{{ route('dashboard') }}"><img src="/images/placeholders/placeholderlogo.png" alt=""></a>
+        <a href="{{ route('dashboard', ['locale' => 'pt'])}}"><img src="/images/placeholders/placeholderlogo.png" alt=""></a>
     </div>
     <div class="flex flex-col gap-3 ">
         <div class="flex  items-center p-1  gap-2">
             <i class="material-icons " style="font-size: 30px">home</i> 
-            <a href="{{ route('dashboard')}}">Home</a>
+            <a href="{{ route('dashboard', ['locale' => 'pt'])}}">Home</a>
         </div>
         <div class="flex  items-center p-1  gap-2">
             <i class="material-icons " style="font-size: 30px">menu_book</i> 
