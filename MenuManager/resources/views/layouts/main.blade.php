@@ -12,11 +12,11 @@
         </div>
         <div class="flex  items-center p-1  gap-2">
             <i class="material-icons " style="font-size: 30px">menu_book</i> 
-            <a href="{{ route('dishes.page')}}">Cardápio</a>
+            <a href="{{ route('dishes.page', ['locale' => 'pt'])}}">Cardápio</a>
         </div>
         <div class="flex  gap-2 items-center p-1 ">
             <i class="material-icons " style="font-size: 30px">group</i> 
-            <a href="{{ route('users.page')}}">Gerentes</a>
+            <a href="{{ route('users.page', ['locale' => 'pt'])}}">Gerentes</a>
         </div>
         <div class="flex  gap-2 items-center p-1 ">
             <i class="material-icons " style="font-size: 30px">post_add</i> 
@@ -28,10 +28,10 @@
         </div>
         <div class="flex  gap-2 items-center p-1 ">
             <i class="material-icons " style="font-size: 30px">trending_up</i> 
-            <a href="{{ route('status.page')}}">Status</a>
+            <a href="{{ route('status.page', ['locale' => 'pt'])}}">Status</a>
         </div>
     </div>
-    <form class="flex flex-col items-center w-full p-1 gap-2" action="{{ route('logout')}}" method="POST">
+    <form class="flex flex-col items-center w-full p-1 gap-2" action="{{ route('logout', ['locale' => 'pt'])}}" method="POST">
         @csrf
         <div class="flex items-center w-full p-1 gap-2">
             <i class="material-icons " style="font-size: 30px">logout</i> 

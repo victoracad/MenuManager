@@ -89,7 +89,7 @@ class DishController extends Controller
             'users_id' => Auth::id(),
         ]);
 
-        return redirect(route('createDish.page'))->with('sucess', 'Prato Criado com sucesso');
+        return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Prato Criado com sucesso');
     }
     public function updateDish(Request $request, $dish_id){
         $dish = Dish::findOrFail($dish_id);
@@ -274,7 +274,7 @@ class DishController extends Controller
             'users_id' => Auth::id(),
         ]);
 
-        return redirect('/admin/pratos')->with('sucess', 'Dados atualizados com sucesso');
+        return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Dados atualizados com sucesso');
     }
     public function changeStatusDish($dish_id)
     {

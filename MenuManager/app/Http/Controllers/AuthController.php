@@ -17,7 +17,7 @@ class AuthController extends Controller
         $requestImage->move(public_path('images/'. $path), $imageName);
         return $imageName;
     }
-    public function login(Request $request){
+    public function login(Request $request, $locale){
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -27,19 +27,19 @@ class AuthController extends Controller
         
         if (Auth::attempt(['username' => $username, 'password' => $password]))
 	    {
-            return redirect('/admin/dashboard')->with('sucess', 'Usuário fez login');
+            return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Usuário fez login');
         }
         return view('pages.admin.login')->with('error', 'Usuário ou senha incorretos');
     }
-    public function logout(Request $request){
+    public function logout(Request $request, $locale){
         Auth::logout(); 
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect(Route('login', ['locale'=>'pt']));
     }
-    public function createUser(Request $request){
+    public function createUser(Request $request, $locale){
         $updateInfoArray = [];
         if ($request->hasFile('avatar_image')) { 
              $avatar_image = $this->imageTreat($request->avatar_image, 'imagesusers/');
@@ -68,10 +68,10 @@ class AuthController extends Controller
             'users_id' => Auth::id(),
         ]);
 
-        return redirect(route('users.page'))->with('sucess', 'Usuário criado com sucesso');
+        return redirect(route('users.page', ['locale'=>'pt']))->with('sucess', 'Usuário criado com sucesso');
 
     }
-    public function deleteUser($user_id){
+    public function deleteUser($user_id, $locale){
         $updateInfoArray = [];
         if(Auth::user()->admin_type === 'Master' && Auth::id() != $user_id){
             $updateInfoArray = [
@@ -87,7 +87,7 @@ class AuthController extends Controller
                 'users_id' => Auth::id(),
             ]);
 
-            return redirect(route('users.page'))->with('sucess', 'Usuário excluído com sucesso');
+            return redirect(route('users.page', ['locale'=>'pt']))->with('sucess', 'Usuário excluído com sucesso');
         }
         return redirect(route('users.page'))->with('error', 'Você não pode excluir esse usuário');
         

@@ -14,11 +14,15 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Merienda:wght@300..900&display=swap');
+        *{
+            font-family: "Merienda", cursive;
+        }
+    </style>
 </head>
-<style>
-    
-</style>
-<body class="flex justify-center items-center h-lvh">
+
+<body class="flex flex-col h-auto pt-20 pb-20 bg-[#ffff]">
     @yield('main')
 </body>
 </html>

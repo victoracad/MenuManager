@@ -3,7 +3,7 @@
 @section('content')
 <section class="flex flex-col p-3 shadow-2xl rounded-2xl">
     <h1 class="text-5xl flex justify-center font-bold">Edite seu prato!</h1>
-    <form class="flex flex-col gap-5" action="{{ route('updateDish.action', ['dish_id'=>$dish->id]) }}" method="POST" enctype="multipart/form-data">
+    <form class="flex flex-col gap-5" action="{{ route('updateDish.action', ['dish_id'=>$dish->id, 'locale' => 'pt']) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex justify-center items-center text-4xl">
             <h2>Página do prato</h2>

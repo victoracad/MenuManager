@@ -6,7 +6,7 @@
         <h1>Adicione mais um gerente</h1>
     </div>
     <div class="flex h-full items-center justify-center">
-        <form class="flex flex-col w-[70%] text-2xl gap-4 " action="{{ route('createUser.action') }}" method="POST" enctype="multipart/form-data">
+        <form class="flex flex-col w-[70%] text-2xl gap-4 " action="{{ route('createUser.action', ['locale' => 'pt']) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col">
                 <label for="name" class="">Nome</label>

@@ -2,7 +2,7 @@
 @section('title', 'Faça login')
 @section('main')
    
-    <form class="border flex flex-col p-2" action="{{ route('login.action') }}" method="POST">
+    <form class="border flex flex-col p-2" action="{{ route('login.action', ['locale' => 'pt']) }}" method="POST">
         @csrf
         <h1>Faça login com sua conta admin</h1>
         <label for="username">Usuário</label>

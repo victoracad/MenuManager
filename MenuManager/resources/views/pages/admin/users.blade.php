@@ -8,7 +8,7 @@
         </h1>
     </div>
     <div class="w-full flex justify-end">
-        <a class="bg-green-400 hover:bg-green-500 rounded-full font-bold text-white h-10 p-6 flex items-center justify-center" href="{{ route('createuser.page') }}"> <i class="material-icons mr-2" style="font-size: 30px">person_add</i>Adicionar um novo gerente</a>
+        <a class="bg-green-400 hover:bg-green-500 rounded-full font-bold text-white h-10 p-6 flex items-center justify-center" href="{{ route('createuser.page', ['locale'=>'pt']) }}"> <i class="material-icons mr-2" style="font-size: 30px">person_add</i>Adicionar um novo gerente</a>
     </div>
     
     <div class="flex flex-col w-full p-2 gap-2 text-[20px]">
@@ -28,7 +28,7 @@
                 </div>
                 
                 <span class="flex justify-center items-center col-span-2">{{$user->admin_type}}</span>
-                <form class="flex justify-center items-center col-span-2 " action="{{ route('deleteUser.action', ['user_id'=>$user->id]) }}" method="POST">
+                <form class="flex justify-center items-center col-span-2 " action="{{ route('deleteUser.action', ['user_id'=>$user->id, 'locale'=>'pt']) }}" method="POST">
                     @csrf
                     <label for="deleteUser{{$user->id}}"> <i class="material-icons text-red-500 cursor-pointer" style="font-size: 30px">delete</i> </label>
                     <input hidden id="deleteUser{{$user->id}}" class="border cursor-pointer" type="submit" value="">

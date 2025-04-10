@@ -9,11 +9,11 @@
     <div>
         <h1>funções</h1>
         <div class="flex flex-col text-blue-500">
-            <a class="border" href="{{ route('dishes.page')}}">Pratos</a>
-            <a class="border" href="{{ route('users.page')}}">Users</a>
+            <a class="border" href="{{ route('dishes.page', ['locale' => 'pt'])}}">Pratos</a>
+            <a class="border" href="{{ route('users.page', ['locale' => 'pt'])}}">Users</a>
             <a class="border" href="">Postagens</a>
             <a class="border" href="">Anunciantes</a>
-            <a class="border" href="{{ route('status.page')}}">Status</a>
+            <a class="border" href="{{ route('status.page', ['locale' => 'pt'])}}">Status</a>
         </div>
     </div>
  </section>
