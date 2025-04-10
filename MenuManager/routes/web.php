@@ -13,6 +13,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 /**PAGES*/
+
+/*CLIENTE PAGES*/
+Route::get('/home/{locale}', [PagesController::class, 'home_page'])->name('home.page');
+
+
+
+/*ADMIN PAGES*/
 Route::get('/admin/login', [PagesController::class, 'login_page'])->name('login');
 Route::get('/admin/dashboard/{locale}', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/admin/pratos', [PagesController::class, 'dishes_page'])->name('dishes.page')->middleware('auth');

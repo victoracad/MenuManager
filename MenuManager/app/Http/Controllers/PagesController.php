@@ -54,4 +54,9 @@ class PagesController extends Controller
         $Systemevents = Systemevent::orderBy('id', 'desc')->limit(10)->get();
         return view('pages.admin.status', ['Systemevents' => $Systemevents, 'userauth' => Auth::user()]);
     }
+
+    /*** PAGESCONTROLLERS CLIENTE */
+    public function home_page(){
+        return view('');
+    }
 }
