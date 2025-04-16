@@ -55,3 +55,40 @@ document.getElementById('image_2').addEventListener('change', function(event) {
         alert('Por favor, selecione uma imagem válida.');
     }
 });
+
+function backPage() {
+    window.history.back();
+}
+
+function updateSlide() {
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+}
+function nextSlide() {
+    index = (index + 1) % totalSlides;
+    updateSlide(index);
+}
+function prevSlide() {
+    index = (index - 1 + totalSlides) % totalSlides;
+    updateSlide();
+}
+function test(){
+    const sideBar = document.getElementById('sideBar');
+    sideBar.style.transform = `translateX(0%)`;
+}
+
+
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sideBar');
+  const iconMenu = document.getElementById('iconMenu');
+
+  if (sidebarOpen) {
+    iconMenu.innerText = "menu";
+    sidebar.style.transform = 'translateX(0%)';
+  } else {
+    iconMenu.innerText = "close";
+    sidebar.style.transform = 'translateX(100%)';
+  }
+
+  sidebarOpen = !sidebarOpen;
+}

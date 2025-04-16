@@ -66,11 +66,35 @@ class PagesController extends Controller
     /*** PAGESCONTROLLERS CLIENTE */
     public function home_page($locale){
         App::setLocale($locale);
-        return view('pages.client.home');
+        $currentUrl = url()->current(); 
+        $segments = explode('/', $currentUrl);
+        array_pop($segments); 
+        $baseUrl = implode('/', $segments); 
+
+        return view('pages.client.home', ['urlNoLocation' => $baseUrl]);
     }
     public function cat_page($cat, $locale){
         App::setLocale($locale);
+        $currentUrl = url()->current(); 
+        $segments = explode('/', $currentUrl);
+        array_pop($segments); 
+        $baseUrl = implode('/', $segments);
+
         $dishes = Dish::where('type', $cat)->where('status', 'Disponível')->get();
-        return view('pages.client.category', ['dishes' => $dishes]);
+
+        return view('pages.client.category', ['dishes' => $dishes, 'urlNoLocation' => $baseUrl, 'cat' => $cat]);
+    }
+
+    public function dish_page_client($dish_id, $locale){
+        //dd($dish_id);
+        App::setLocale($locale);
+        $currentUrl = url()->current(); 
+        $segments = explode('/', $currentUrl);
+        array_pop($segments); 
+        $baseUrl = implode('/', $segments);
+
+        $dish = Dish::where('id', $dish_id)->where('status', 'Disponível')->first();
+
+        return view('pages.client.dish', ['dish' => $dish, 'urlNoLocation' => $baseUrl]);
     }
 }

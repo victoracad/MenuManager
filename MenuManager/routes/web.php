@@ -17,10 +17,12 @@ Route::get('/', function () {
 /*CLIENTE PAGES*/
 Route::get('/home/{locale}', [PagesController::class, 'home_page'])->name('home.page');
 Route::get('/{cat}/{locale}', [PagesController::class, 'cat_page'])->name('cat.page');
+Route::get('/pratos/{dish_id}/{locale}', [PagesController::class, 'dish_page_client'])->name('dishClient.page');
 
 //<span class="row-span-5">{{json_decode($dish->description, true)['desc_'.app()->getLocale()];}}</span>
 
 /*ADMIN PAGES*/
+//Route::get('/cusers', [AuthController::class, 'index'])->name('user.index');
 Route::get('/admin/login/{locale}', [PagesController::class, 'login_page'])->name('login');
 Route::get('/admin/dashboard/{locale}', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/admin/pratos/{locale}', [PagesController::class, 'dishes_page'])->name('dishes.page')->middleware('auth');
@@ -38,6 +40,6 @@ Route::post('/admin/login_action/{locale}', [AuthController::class, 'login'])->n
 Route::post('/admin/logout/{locale}', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::post('/admin/createDish_action/{locale}', [DishController::class, 'createDish'])->name('createDish.action')->middleware('auth');
 Route::post('/admin/editDish_action/{dish_id}/{locale}', [DishController::class, 'updateDish'])->name('updateDish.action')->middleware('auth');
-Route::post('/admin/createUser_action/{locale}', [AuthController::class, 'createUser'])->name('createUser.action')->middleware('auth');
+Route::post('/admin/createUser_action/{locale}', [AuthController::class, 'createUser'])->name('createUser.action');//->middleware('auth');
 Route::post('/admin/deleteUser/{user_id}/{locale}', [AuthController::class, 'deleteUser'])->name('deleteUser.action')->middleware('auth');
 Route::get('/admin/changeDishStatus/{dish_id}', [DishController::class, 'changeStatusDish'])->name('changeStatusDish.action')->middleware('auth');

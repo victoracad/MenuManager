@@ -11,13 +11,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/components/universeIO.css">
+    <script src="{{ asset('js/script.js') }}"></script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Merienda:wght@300..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
         *{
-            font-family: "Merienda", cursive;
+            font-family: "Roboto", sans-serif;
         }
     </style>
 </head>
