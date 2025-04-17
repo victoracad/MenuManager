@@ -14,7 +14,7 @@
             <span class="text-4xl font-bold">{{$dish->name}}</span>
             <span class="text-3xl">{{json_decode($dish->description, true)['desc_in'];}}</span>
             <div class="flex justify-between text-4xl font-bold">
-                <span class="text-green-800">R${{$dish->price}}</span>
+                <span class="text-green-800">{{ $formatter->formatCurrency($dish->price, 'BRL') }}</span>
                 <span class="">servem:<i class="material-icons " style="font-size: 30px">man</i><i class="material-icons " style="font-size: 30px">man</i><i class="material-icons " style="font-size: 30px">man</i>    </span>
                 <span class="text-orange-400 font-bold">Número: {{$dish->numMenu}}</span>
             </div>

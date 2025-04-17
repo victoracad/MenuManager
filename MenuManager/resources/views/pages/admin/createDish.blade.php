@@ -32,20 +32,20 @@
 
             <div>
                 <div class="flex gap-5">
-                    <div class=" w-[33%]">
-                        <div class="relative rounded-2xl text-5xl ">
+                    <div class=" w-[45%]">
+                        <div class="relative rounded-2xl text-5xl">
                             <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-green-400 font-bold ">R$</span>
-                            <input max="1000" id="price" name="price" type="text" inputmode="numeric" maxlength="6" pattern="\d*" step="0.01" 
-                            class="pl-20 border rounded-2xl h-12 w-full text-green-400 font-bold border-none focus:outline-none focus:appearance-none" 
+                            <input id="priceInput" max="1000" id="price" name="price" type="text" inputmode="numeric"
+                            class="price pl-20 rounded-2xl h-12 w-full text-green-400 font-bold border-none focus:outline-none focus:appearance-none" 
                             placeholder="0,00" required>
                         </div>
                     </div>
                     
-                    <div class="w-[33%]">
+                    <div class="w-[28%]">
                         
                     </div>
         
-                    <div class="w-[33%] flex text-red-500">
+                    <div class="w-[27%] flex text-red-500">
                         <label  class="font-bold text-5xl" for="numMenu">№</label>
                         <input placeholder="0" class="border text-5xl h-12 w-full border-none focus:outline-none font-bold rounded-2xl p-3" type="text" inputmode="numeric" maxlength="5" pattern="\d*" name="numMenu" id="numMenu" required>
                     </div>
@@ -67,6 +67,7 @@
             </div>
         </div>
         <hr>
+        
        
         
         <!--PREVIEW CARADÁPIO--->
@@ -97,5 +98,8 @@
         </div>
     </form>
 </section>
+<script>
+    Inputmask("99,99").mask("#priceInput");
+</script>
     
 @endsection

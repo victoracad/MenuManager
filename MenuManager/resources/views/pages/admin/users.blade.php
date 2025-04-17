@@ -22,23 +22,20 @@
         @foreach ($users as $user)
             <div class="grid grid-cols-12 ">
                 <span class="flex justify-center items-center col-span-3">{{$user->profile->name}}</span>
-                <span class="flex justify-center items-center col-span-3">{{$user->username}} {{$user->id}}</span>
-                <div class="flex justify-center items-center col-span-2">
-                    <img class="flex justify-center items-center col-span-2 w-15 rounded-full" src="/images/imagesusers/{{$user->profile->avatar_image}}" alt="">
+                <span class="flex justify-center items-center col-span-3">{{$user->username}}</span>
+                <div class="flex justify-center items-center col-span-2 overflow-hidden">
+                    <div class="rounded-full w-15 h-15 overflow-hidden">
+                        <img class="flex w-full h-full object-cover" src="/images/imagesusers/{{$user->profile->avatar_image}}" alt="">
+                    </div>
                 </div>
                 
                 <span class="flex justify-center items-center col-span-2">{{$user->admin_type}}</span>
-                <form class="flex justify-center items-center col-span-2 " action="{{ route('deleteUser.action', ['user_id'=>$user->id, 'locale'=>'pt']) }}" method="POST">
-                    @csrf
-                    <label for="deleteUser{{$user->id}}"> <i class="material-icons text-red-500 cursor-pointer" style="font-size: 30px">delete</i> </label>
-                    <input hidden id="deleteUser{{$user->id}}" class="border cursor-pointer" type="submit" value="">
-                </form>
+                <div class="flex justify-center items-center col-span-2">
+                    <button data-id="{{$user->id}}" class="openModalConfirm rounded-full w-10 h-10 flex justify-center items-center bg-red-600 text-white hover:bg-red-700"><i class="material-icons text-white cursor-pointer" style="font-size: 30px">delete</i></button>
+                </div>
+                
             </div>
         @endforeach
     </div>
-    
-
-    
- </section>
-    
+ </section>  
 @endsection

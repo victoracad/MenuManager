@@ -14,7 +14,7 @@
         <div class="grid grid-rows-10 w-[65%] p-4">
             <h2 class="flex items-center font-bold row-span-8 text-[19px]">{{$dish->name}}</h2>
             
-            <span class="row-span-2 text-green-700 font-bold text-2xl">R${{$dish->price}}</span>
+            <span class="row-span-2 text-green-700 font-bold text-2xl">{{ $formatter->formatCurrency($dish->price, 'BRL') }}</span>
         </div>   
     </div>
 </a>

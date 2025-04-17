@@ -38,8 +38,6 @@
                 <div class="relative w-full h-full bg-white p-2">
                     <div class="flex justify-center items-center h-[40%]">
                         <i id="iconMenu" class="material-icons " style="font-size: 30px">translate</i> 
-                        -
-                        <span class="text-2xl">{{app()->getLocale()}}</span>
                     </div>
                     <div class="h-[60%] rounded-2xl overflow-hidden">
                         <img class="w-full h-full object-cover" src=" 
@@ -138,6 +136,7 @@
               
             
         </div>
+
     </section>
 
     <footer class="fixed flex text-white justify-center items-center bottom-0 bg-red-600 h-20 w-full">

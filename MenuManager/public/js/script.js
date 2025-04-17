@@ -92,3 +92,7 @@ function toggleSidebar() {
 
   sidebarOpen = !sidebarOpen;
 }
+
+
+
+//SISTEMA DO MODEL DE CONFIRMAÇÃO 

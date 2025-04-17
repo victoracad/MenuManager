@@ -89,7 +89,7 @@ class AuthController extends Controller
 
             return redirect(route('users.page', ['locale'=>'pt']))->with('sucess', 'Usuário excluído com sucesso');
         }
-        return redirect(route('users.page'))->with('error', 'Você não pode excluir esse usuário');
+        return redirect(route('users.page', ['locale'=>'pt']))->with('error', 'Você não pode excluir esse usuário');
         
     }
 }

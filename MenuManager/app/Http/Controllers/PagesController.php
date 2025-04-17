@@ -34,9 +34,10 @@ class PagesController extends Controller
         return view('pages.admin.createDish', ['userauth' => Auth::user()]);
     }
     public function category_page($cat, $locale){
+        $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
         App::setLocale($locale);
-        $dishes = Dish::where('type', $cat)->limit(3)->get();
-        return view('pages.admin.categorys.category', ['dishes' => $dishes, 'cat' => $cat, 'userauth' => Auth::user()]);
+        $dishes = Dish::where('type', $cat)->get();
+        return view('pages.admin.categorys.category', ['dishes' => $dishes, 'cat' => $cat, 'userauth' => Auth::user(), 'formatter' => $formatter]);
     }
     public function editDish_page($dish_id, $locale){
         App::setLocale($locale);
@@ -44,9 +45,10 @@ class PagesController extends Controller
         return view('pages.admin.editDish', ['dish' => $dish, 'userauth' => Auth::user()]);
     }
     public function dish_page($dish_id, $locale){
+        $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
         App::setLocale($locale);
         $dish = Dish::where('id', $dish_id)->first();
-        return view('pages.admin.dish', ['dish' => $dish, 'userauth' => Auth::user()]);
+        return view('pages.admin.dish', ['dish' => $dish, 'userauth' => Auth::user(), 'formatter' => $formatter]);
     }
     public function users_page($locale){
         App::setLocale($locale);
@@ -63,6 +65,9 @@ class PagesController extends Controller
         return view('pages.admin.status', ['Systemevents' => $Systemevents, 'userauth' => Auth::user()]);
     }
 
+
+
+
     /*** PAGESCONTROLLERS CLIENTE */
     public function home_page($locale){
         App::setLocale($locale);
@@ -74,6 +79,7 @@ class PagesController extends Controller
         return view('pages.client.home', ['urlNoLocation' => $baseUrl]);
     }
     public function cat_page($cat, $locale){
+        $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
         App::setLocale($locale);
         $currentUrl = url()->current(); 
         $segments = explode('/', $currentUrl);
@@ -82,11 +88,12 @@ class PagesController extends Controller
 
         $dishes = Dish::where('type', $cat)->where('status', 'Disponível')->get();
 
-        return view('pages.client.category', ['dishes' => $dishes, 'urlNoLocation' => $baseUrl, 'cat' => $cat]);
+        return view('pages.client.category', ['dishes' => $dishes, 'urlNoLocation' => $baseUrl, 'cat' => $cat, 'formatter' => $formatter]);
     }
 
     public function dish_page_client($dish_id, $locale){
         //dd($dish_id);
+        $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
         App::setLocale($locale);
         $currentUrl = url()->current(); 
         $segments = explode('/', $currentUrl);
@@ -95,6 +102,6 @@ class PagesController extends Controller
 
         $dish = Dish::where('id', $dish_id)->where('status', 'Disponível')->first();
 
-        return view('pages.client.dish', ['dish' => $dish, 'urlNoLocation' => $baseUrl]);
+        return view('pages.client.dish', ['dish' => $dish, 'urlNoLocation' => $baseUrl, 'formatter' => $formatter]);
     }
 }

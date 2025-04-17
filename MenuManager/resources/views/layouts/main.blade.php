@@ -31,11 +31,10 @@
             <a href="{{ route('status.page', ['locale' => 'pt'])}}">Status</a>
         </div>
     </div>
-    <form class="flex flex-col items-center w-full p-1 gap-2" action="{{ route('logout', ['locale' => 'pt'])}}" method="POST">
-        @csrf
+        
         <div class="flex items-center w-full p-1 gap-2">
             <i class="material-icons " style="font-size: 30px">logout</i> 
-        <input class="border border-white rounded-2xl cursor-pointer w-full hover:bg-white hover:text-black" type="submit" value="Sair">
+            <button data-id="logout" id="logout" class="openModalConfirm border border-white rounded-2xl cursor-pointer w-full hover:bg-white hover:text-black">Logout</button>
         </div>
         
         <div class="flex items-center gap-2 w-full">
@@ -45,22 +44,95 @@
             
             <span>{{$userauth->username}}</span>
         </div>
-    </form>
+    
     
    </nav>
+
     @if (session('sucess'))
-    <div class="fixed flex top-0 rounded-b-2xl w-70 bg-green-400 h-20 right-[45%] justify-center items-center text-2xl p-2">
-            <p class="sucess">{{session('sucess')}}</p>
-    </div>
+        <div id="flashMessage" class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-md transition-opacity duration-500">
+                <p class="sucess">{{session('sucess')}}</p>
+        </div>
+        <script>
+            // Espera 3 segundos e começa a esconder
+            setTimeout(() => {
+            const flash = document.getElementById('flashMessage');
+            if (flash) {
+                flash.classList.add('opacity-0');
+        
+                // Depois de mais 0.5s (tempo da transição), remove do DOM
+                setTimeout(() => {
+                flash.remove();
+                }, 500);
+            }
+            }, 3000);
+        </script>
     @endif
+
     @if (session('error'))
-        <div class="fixed flex top-0 rounded-b-2xl w-70 bg-red-400 font-bold h-20 right-[45%] justify-center items-center text-2xl p-2">
+        <div id="flashMessage" class="fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow-md transition-opacity duration-500">
             <p>{{session('error')}}</p>
         </div>
+        <script>
+            // Espera 3 segundos e começa a esconder
+            setTimeout(() => {
+              const flash = document.getElementById('flashMessage');
+              if (flash) {
+                flash.classList.add('opacity-0');
+        
+                // Depois de mais 0.5s (tempo da transição), remove do DOM
+                setTimeout(() => {
+                  flash.remove();
+                }, 500);
+              }
+            }, 3000);
+        </script>
     @endif
+    
    <section class="flex flex-col w-[50%] h-full">
         @yield('content')
    </section>
  </section>
+<!--MODAL DE CONFIRMAÇÃO-->
+ <div id="confirmModal" class="fixed inset-0 bg-gray-400/50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-xl shadow-lg p-6 max-w-sm w-full text-center">
+        <h2 class="text-xl font-semibold mb-4">Tem certeza?</h2>
+        <div class="flex justify-center gap-4">
+            <button id="cancelModal"class="bg-gray-300 cursor-pointer px-4 py-2 rounded hover:bg-gray-400">Cancelar</button>
+            <form id="formAction" method="POST">
+                @csrf
+                <button type="submit" class="bg-red-600 cursor-pointer text-white px-4 py-2 rounded hover:bg-red-700">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('confirmModal');
+    const cancelBtn = document.getElementById('cancelModal');
+    const formAction = document.getElementById('formAction');
+
+    const openBtns = document.querySelectorAll('.openModalConfirm');
+
+    openBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const itemId = btn.getAttribute('data-id');
+            if(itemId == "logout"){
+                formAction.setAttribute('action', `/admin/logout/pt`);
+                modal.classList.remove('hidden');
+            }else{
+                formAction.setAttribute('action', `/admin/deleteUser/${itemId}/pt`);
+
+                modal.classList.remove('hidden');
+            }
+  
+        });
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    
+</script>
     
 @endsection

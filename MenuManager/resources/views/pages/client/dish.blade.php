@@ -12,7 +12,8 @@
             <img class=" w-full flex justify-center items-center " src="/images/imagesdish/{{json_decode($dish->images, true)['image_1']}}"  alt="">
         </div>
         <span class="text-2xl text-center text-red-500 font-bold">{{json_decode($dish->description, true)['desc_'. app()->getLocale()]}}</span>
-        <span class="text-4xl font-bold text-green-600">R${{$dish->price}}</span>
+        <span class="text-4xl font-bold text-green-600">{{ $formatter->formatCurrency($dish->price, 'BRL') }}
+        </span>
         
     </div>
     
