@@ -23,12 +23,12 @@
             <a href="">Postagens</a>
         </div>
         <div class="flex  gap-2 items-center p-1 ">
-            <i class="material-icons " style="font-size: 30px">attach_money</i> 
-            <a href="">Anunciantes</a>
+            <i class="material-icons " style="font-size: 30px">trending_up</i> 
+            <a href="{{ route('statsSystem.page', ['locale' => 'pt'])}}">Stats System</a>
         </div>
         <div class="flex  gap-2 items-center p-1 ">
-            <i class="material-icons " style="font-size: 30px">trending_up</i> 
-            <a href="{{ route('status.page', ['locale' => 'pt'])}}">Status</a>
+            <i class="material-icons " style="font-size: 30px">sort</i> 
+            <a href="{{ route('status.page', ['locale' => 'pt'])}}">Logs</a>
         </div>
     </div>
         
@@ -116,10 +116,17 @@
     openBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const itemId = btn.getAttribute('data-id');
+            const TypeId = btn.getAttribute('id');
             if(itemId == "logout"){
+                //alert('1');
                 formAction.setAttribute('action', `/admin/logout/pt`);
+                //modal.classList.remove('hidden');
+            }else if(TypeId == "dish"){
+                //alert('2');
+                formAction.setAttribute('action', `/admin/deleteDish/${itemId}/pt`);
                 modal.classList.remove('hidden');
             }else{
+                //walert('3')
                 formAction.setAttribute('action', `/admin/deleteUser/${itemId}/pt`);
 
                 modal.classList.remove('hidden');

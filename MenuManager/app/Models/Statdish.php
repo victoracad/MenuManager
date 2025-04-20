@@ -10,7 +10,8 @@ class Statdish extends Model
 
     protected $fillable = [
         'views',
-        'shares',
+        'year',
+        'month',
         'dishes_id',
     ];
 

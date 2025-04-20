@@ -51,19 +51,18 @@
                         </span>
                     </div>
                 </a>
-                <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Pratos_Feitos', 'locale'=>'pt']) }}">
+                <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Peixe', 'locale'=>'pt']) }}">
                     <div class="w-[50%]">
-                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/pratofeitocat.jpg" alt="">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="https://img.freepik.com/fotos-gratis/file-de-peixe-grelhado-com-varas-de-limao-e-vegetais-em-uma-placa-de-bife-preto_114579-2982.jpg?uid=R90232147&ga=GA1.1.1266164437.1743623360&semt=ais_hybrid&w=740" alt="">
                     </div>
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center font-bold">
                         <span>
-                            Pratos
+                            Peixe
                         </span>
-                        <span>
-                            Feitos
-                        </span>
+                        
                     </div>
                 </a>
+                
             </div>
 
             <div class="flex gap-5">
@@ -77,6 +76,33 @@
                         </span>
                     </div>
                 </a>
+                <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Pratos_Feitos', 'locale'=>'pt']) }}">
+                    <div class="w-[50%]">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/pratofeitocat.jpg" alt="">
+                    </div>
+                    <div class=" w-[50%] flex flex-col justify-center p-2 items-center font-bold">
+                        <span>
+                            Pratos
+                        </span>
+                        <span>
+                            Feitos
+                        </span>
+                    </div>
+                </a>
+                
+            </div>
+
+            <div class="flex justify-center gap-5">
+                <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Sobremesas', 'locale'=>'pt']) }}">
+                    <div class="w-[50%]">
+                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/sobremesascat.jpg" alt="">
+                    </div>
+                    <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-3xl font-bold">
+                        <span>
+                            Sobremesas
+                        </span>
+                    </div>
+                </a>
                 <a class="flex rounded-2xl overflow-hidden w-[50%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Porcoes', 'locale'=>'pt']) }}">
                     <div class="w-[50%]">
                         <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/porcoescat.jpg" alt="">
@@ -84,19 +110,6 @@
                     <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
                         <span>
                             Porções
-                        </span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="flex justify-center">
-                <a class="flex rounded-2xl overflow-hidden w-[60%] h-40 bg-[#a81c1c] text-white shadow-2xl" href="{{ route('category.page', ['cat'=>'Sobremesas', 'locale'=>'pt']) }}">
-                    <div class="w-[50%]">
-                        <img style="display: none;" onload="this.style.display='block'" class="object-cover w-full h-full" src="/images/placeholders/sobremesascat.jpg" alt="">
-                    </div>
-                    <div class=" w-[50%] flex flex-col justify-center p-2 items-center text-4xl font-bold">
-                        <span>
-                            Sobremesas
                         </span>
                     </div>
                 </a>

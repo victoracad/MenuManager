@@ -62,6 +62,17 @@
             </div>
         </a>
 
+        <a  href="{{ route('cat.page', ['cat'=>'Peixe', 'locale'=>app()->getLocale()]) }}" class="w-full" >
+            <div class="grid grid-cols-10 h-35 rounded-2xl overflow-hidden bg-[#B22222] shadow-2xl">
+                <div class="col-span-5">
+                    <img class="w-full h-full object-cover rounded-2xl" src="https://img.freepik.com/fotos-gratis/bife-de-file-de-carne-de-salmao_74190-739.jpg?uid=R90232147&ga=GA1.1.1266164437.1743623360&semt=ais_hybrid&w=740" alt="">
+                </div>
+                <div class="col-span-5 flex justify-center items-center text-white">
+                    <h2 class="text-center text-3xl font-bold">{{ __('messages.Peixe') }}</h2>
+                </div>
+            </div>
+        </a>
+
         <a href="{{ route('cat.page', ['cat'=>'Pratos_Feitos', 'locale'=>app()->getLocale()]) }}" class="w-full" >
             <div class="grid grid-cols-10 h-35 rounded-2xl overflow-hidden bg-[#B22222] shadow-2xl">
                 <div class="col-span-5">

@@ -22,6 +22,7 @@
         </div>
         <div class="flex justify-center">
             <a class="h-12 bg-blue-300 flex items-center justify-center rounded-2xl w-[50%] text-white font-bold text-2xl hover:bg-blue-500" href="{{ route('editDish.page', ['dish_id'=>$dish->id, 'locale' => 'pt']) }}">Editar prato</a>
+            
         </div>
         
     </div>

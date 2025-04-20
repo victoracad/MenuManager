@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\User;
 use App\Models\Systemevent;
+use App\Models\Statdish;
+
 
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
@@ -14,9 +16,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
-{
+{   
+    //$this->imageTreat($request->image_2, 'imagesdish/'); 
+    public function RegisterSiteVisit()
+    {
+        $cookieName = 'visitante_unico';
+        $duracaoDias = 30;
+
+        if (!$request->cookie($cookieName)) {
+            // ✅ É um novo visitante — incrementa contador
+            DB::table('site_visits')->increment('total_visits');
+
+            // Cria um cookie válido por 30 dias
+            return response('Nova visita registrada.')
+                ->cookie($cookieName, true, $duracaoDias * 1440); // 1440 minutos = 1 dia
+        }
+
+        return response('Visitante já contado.');
+    }
     public function login_page($locale){
         return view('pages.admin.login');
     }
@@ -64,6 +84,10 @@ class PagesController extends Controller
         $Systemevents = Systemevent::orderBy('id', 'desc')->limit(10)->get();
         return view('pages.admin.status', ['Systemevents' => $Systemevents, 'userauth' => Auth::user()]);
     }
+    public function statsSystem_page($locale){
+        App::setLocale($locale);
+        return view('pages.admin.statsSystem', ['userauth' => Auth::user(), ]);
+    }
 
 
 
@@ -93,6 +117,11 @@ class PagesController extends Controller
 
     public function dish_page_client($dish_id, $locale){
         //dd($dish_id);
+        Statdish::updateOrInsert(
+            ['dishes_id' => $dish_id], // Condição para verificar se existe
+            ['views' => DB::raw('views + 1')] // Atualiza corretamente
+        );
+
         $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
         App::setLocale($locale);
         $currentUrl = url()->current(); 

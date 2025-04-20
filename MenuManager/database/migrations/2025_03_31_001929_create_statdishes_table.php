@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('statdishes', function (Blueprint $table) {
             $table->id();
             $table->integer('views')->unsigned()->nullable()->default(0);
-            $table->integer('shares')->unsigned()->nullable()->default(0);
+            $table->integer('year');
+            $table->integer('month');
             $table->foreignId('dishes_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

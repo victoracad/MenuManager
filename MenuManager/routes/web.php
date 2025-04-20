@@ -33,6 +33,7 @@ Route::get('/admin/prato/{dish_id}/{locale}', [PagesController::class, 'dish_pag
 Route::get('/admin/users/{locale}', [PagesController::class, 'users_page'])->name('users.page')->middleware('auth');
 Route::get('/admin/createuser/{locale}', [PagesController::class, 'createuser_page'])->name('createuser.page')->middleware('auth');
 Route::get('/admin/status/{locale}', [PagesController::class, 'status_page'])->name('status.page')->middleware('auth');
+Route::get('/admin/statsSystem/{locale}', [PagesController::class, 'statsSystem_page'])->name('statsSystem.page')->middleware('auth');
 
 
 /**ACTIONS*/
@@ -42,4 +43,8 @@ Route::post('/admin/createDish_action/{locale}', [DishController::class, 'create
 Route::post('/admin/editDish_action/{dish_id}/{locale}', [DishController::class, 'updateDish'])->name('updateDish.action')->middleware('auth');
 Route::post('/admin/createUser_action/{locale}', [AuthController::class, 'createUser'])->name('createUser.action');//->middleware('auth');
 Route::post('/admin/deleteUser/{user_id}/{locale}', [AuthController::class, 'deleteUser'])->name('deleteUser.action')->middleware('auth');
+Route::post('/admin/deleteDish/{dish_id}/{locale}', [DishController::class, 'deleteDish'])->name('deleteDish.action')->middleware('auth');
 Route::get('/admin/changeDishStatus/{dish_id}', [DishController::class, 'changeStatusDish'])->name('changeStatusDish.action')->middleware('auth');
+
+//endpoints
+Route::get('/api/pratos/{locale}', [DishController::class, 'index']);

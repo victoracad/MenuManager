@@ -2,7 +2,7 @@
 @section('title', 'Categorias')
 @section('content')
  <section class="flex flex-col gap-5 shadow-2xl rounded-2xl p-5 ">
-    <h1 class="text-5xl font-bold flex justify-center">{{$cat}}</h1>
+    <h1 class="text-5xl font-bold flex justify-center">{{__('messages.'. $cat)}}</h1>
 
     @foreach ($dishes as $dish)
         <div class="flex rounded-2xl h-60 bg-neutral-50 shadow-2xl">
@@ -20,6 +20,10 @@
             </a>
             <div class="w-[20%] flex flex-col items-center justify-center gap-5">
                 <a class="text-white flex justify-center items-center rounded-full p-2 bg-blue-400 hover:bg-blue-500" href="{{ route('editDish.page', ['dish_id'=>$dish->id, 'locale' => 'pt']) }}"><i class="material-icons " style="font-size: 30px">edit</i> </a>
+
+                <div class="flex justify-center items-center col-span-2">
+                    <button data-id="{{$dish->id}}" id="dish" class="openModalConfirm rounded-full w-10 h-10 flex justify-center items-center bg-red-600 text-white hover:bg-red-700"><i class="material-icons text-white cursor-pointer" style="font-size: 30px">delete</i></button>
+                </div>
                 <!-- From Uiverse.io by TimTrayler -->
                 <div class="flex flex-col gap-1 p-1 items-center justify-center">
 
@@ -32,6 +36,8 @@
 
                     <span id="dishSpanCheckbox-{{$dish->id}}" class="text-2xl font-bold">{{$dish->status}}</span>
                 </div> 
+
+    
 
             </div>
         </div>

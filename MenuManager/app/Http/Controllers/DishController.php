@@ -49,36 +49,38 @@ class DishController extends Controller
     public function createDish(Request $request){
         $updateInfoArray = [];
         if ($request->hasFile('image_1') && $request->hasFile('image_2')) {
-        $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
-        $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
-        $imagesJson = json_encode($images);
-        //dd($request->description);
-        //SISTEMA DE TRADUÇÃO
-        $description_lg = $this->apiGptTranslate($request->description);
-        $data = json_decode($description_lg);
-        $descriptions_lg = $data->choices[0]->message->content;
-        ////////////
+            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
+            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+            $imagesJson = json_encode($images);
+            //dd($request->description);
+            //SISTEMA DE TRADUÇÃO
+            $description_lg = $this->apiGptTranslate($request->description);
+            $data = json_decode($description_lg);
+            $descriptions_lg = $data->choices[0]->message->content;
+            ////////////
 
-        $dish = Dish::create([
-            'name' => $request->name,
-            'images' => $imagesJson,
-            'description' => $descriptions_lg,
-            'price' => $request->price,
-            'type' => $request->type,
-            'numMenu' => $request->numMenu,
-        ]);
-        
-        Statdish::create([
-            'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-        ]);
-        $updateInfoArray = [
-            'name' => $request->name,
-            'images' => $imagesJson,
-            'description' => $descriptions_lg,
-            'price' => $request->price,
-            'type' => $request->type,
-            'numMenu' => $request->numMenu,
-        ];
+            $dish = Dish::create([
+                'name' => $request->name,
+                'images' => $imagesJson,
+                'description' => $descriptions_lg,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ]);
+            
+            Statdish::create([
+                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
+                'year' => date('Y'), 
+                'month' => date('n'), 
+            ]);
+            $updateInfoArray = [
+                'name' => $request->name,
+                'images' => $imagesJson,
+                'description' => $descriptions_lg,
+                'price' => $request->price,
+                'type' => $request->type,
+                'numMenu' => $request->numMenu,
+            ];
         }
         
         $updateInfo = json_encode($updateInfoArray);  
@@ -276,6 +278,26 @@ class DishController extends Controller
 
         return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Dados atualizados com sucesso');
     }
+    public function deleteDish(Request $request, $dish_id){
+        $updateInfoArray = [];
+
+        $nameDish = Dish::where('id', $dish_id)->first()->name;
+        $updateInfoArray = [
+            'name' => $nameDish
+        ];
+
+        $dish = Dish::findOrFail($dish_id);
+        $dish->delete();
+
+        $updateInfo = json_encode($updateInfoArray);  
+        Systemevent::create([
+            'typechange' => 'delete', 
+            'tablechange' => 'dishes',
+            'update_info' => $updateInfo,
+            'users_id' => Auth::id(),
+        ]);
+        return redirect(route('dishes.page', ['locale' => 'pt']))->with('sucess', 'Prato Excluído com sucesso');
+    }
     public function changeStatusDish($dish_id)
     {
         $dish = Dish::find($dish_id);
@@ -301,5 +323,11 @@ class DishController extends Controller
         }
     
         
+    }
+
+    //endpoint
+    public function index()
+    {
+        return response()->json(Statdish::all());
     }
 }

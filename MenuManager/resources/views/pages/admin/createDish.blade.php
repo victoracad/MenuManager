@@ -59,6 +59,7 @@
                                 <option value="Carne_Bovina">Carne Bovina</option>
                                 <option value="Carne_Suina">Carne Suína</option>
                                 <option value="Frango">Frango</option>
+                                <option value="Peixe">Peixe</option>
                                 <option value="Bebidas">Bebidas</option>
                                 <option value="Pratos_Feitos">Pratos Feitos</option>
                                 <option value="Porcoes">Porções</option>

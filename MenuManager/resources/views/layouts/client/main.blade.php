@@ -24,7 +24,7 @@
 
     </nav>
 
-    <section  class="w-full p-5 flex gap-10 flex-col">
+    <section  class="w-full p-5 flex gap-5 flex-col">
         @yield('content')
     </section>
 
