@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statdishes', function (Blueprint $table) {
+        Schema::create('sitestats', function (Blueprint $table) {
             $table->id();
             $table->integer('views')->unsigned()->nullable()->default(0);
             $table->string('period');
-            $table->integer('month');
-            $table->foreignId('dishes_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('statdishes');
+        Schema::dropIfExists('sitestats');
     }
 };

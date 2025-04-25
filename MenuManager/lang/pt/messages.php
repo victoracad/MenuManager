@@ -10,4 +10,5 @@ return [
     'Bebidas' => 'Bebidas',
     'Porcoes' => 'Porções',
     'Sobremesas' => 'Sobremesas',
+    'Sobre' => 'Sobre',
 ];

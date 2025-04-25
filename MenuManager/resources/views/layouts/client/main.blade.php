@@ -129,8 +129,8 @@
             </div>   
             <hr>
             <div class="flex items-center">
-                <a href="{{ route('cat.page', ['cat'=>'Sobremesas', 'locale'=>app()->getLocale()]) }}" class="w-full">
-                    sobre
+                <a href="{{ route('about.page', ['locale'=>app()->getLocale()]) }}" class="w-full">
+                    {{__('messages.Sobre')}}
                 </a>
             </div> 
               

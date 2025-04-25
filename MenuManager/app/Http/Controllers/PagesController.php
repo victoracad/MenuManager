@@ -6,6 +6,8 @@ use App\Models\Dish;
 use App\Models\User;
 use App\Models\Systemevent;
 use App\Models\Statdish;
+use App\Models\Sitestat;
+
 
 
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -20,30 +22,37 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {   
-    //$this->imageTreat($request->image_2, 'imagesdish/'); 
+
     public function RegisterSiteVisit()
     {
-        $cookieName = 'visitante_unico';
-        $duracaoDias = 30;
 
-        if (!$request->cookie($cookieName)) {
-            // ✅ É um novo visitante — incrementa contador
-            DB::table('site_visits')->increment('total_visits');
+        if (!isset($_COOKIE['alreadyView'])) {
+            Sitestat::updateOrInsert(
+                ['period' => date('Y/m')], 
+                ['views' => DB::raw('views + 1')] 
+            );
 
-            // Cria um cookie válido por 30 dias
-            return response('Nova visita registrada.')
-                ->cookie($cookieName, true, $duracaoDias * 1440); // 1440 minutos = 1 dia
+            setcookie("alreadyView", true, time() + 1800, "/");
+
+            return response('Nova visita registrada.');
         }
 
         return response('Visitante já contado.');
     }
+
     public function login_page($locale){
         return view('pages.admin.login');
     }
     public function dashboard($locale){
-        //dd($locale);
+        $viewsSiteMonth = Sitestat::where('period', date('Y/m'))
+        ->first();
+
+        $mostViewsDish = Statdish::whereNotNull('views')
+        ->where('period', date('Y/m'))
+        ->orderByDesc('views')
+        ->first();
         App::setLocale($locale);
-        return view('pages.admin.dashboard', ['userauth' => Auth::user()]);
+        return view('pages.admin.dashboard', ['userauth' => Auth::user(), 'DishViews' => $mostViewsDish, 'siteViews' => $viewsSiteMonth]);
     }
     public function dishes_page($locale){
         App::setLocale($locale);
@@ -94,6 +103,7 @@ class PagesController extends Controller
 
     /*** PAGESCONTROLLERS CLIENTE */
     public function home_page($locale){
+        $this->RegisterSiteVisit();
         App::setLocale($locale);
         $currentUrl = url()->current(); 
         $segments = explode('/', $currentUrl);
@@ -103,6 +113,7 @@ class PagesController extends Controller
         return view('pages.client.home', ['urlNoLocation' => $baseUrl]);
     }
     public function cat_page($cat, $locale){
+        $this->RegisterSiteVisit();
         $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
         App::setLocale($locale);
         $currentUrl = url()->current(); 
@@ -116,10 +127,10 @@ class PagesController extends Controller
     }
 
     public function dish_page_client($dish_id, $locale){
-        //dd($dish_id);
+        $this->RegisterSiteVisit();
         Statdish::updateOrInsert(
-            ['dishes_id' => $dish_id], // Condição para verificar se existe
-            ['views' => DB::raw('views + 1')] // Atualiza corretamente
+            ['dishes_id' => $dish_id], 
+            ['views' => DB::raw('views + 1')] 
         );
 
         $formatter = new \NumberFormatter('pt_BR', \NumberFormatter::CURRENCY);
@@ -132,5 +143,11 @@ class PagesController extends Controller
         $dish = Dish::where('id', $dish_id)->where('status', 'Disponível')->first();
 
         return view('pages.client.dish', ['dish' => $dish, 'urlNoLocation' => $baseUrl, 'formatter' => $formatter]);
+    }
+    public function about_page($locale){
+        dd($locale);
+        App::setLocale($locale);
+        $this->RegisterSiteVisit();
+        return view('pages.client.about');
     }
 }

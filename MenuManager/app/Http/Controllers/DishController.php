@@ -70,7 +70,7 @@ class DishController extends Controller
             
             Statdish::create([
                 'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-                'year' => date('Y'), 
+                'period' => date('Y/m'), 
                 'month' => date('n'), 
             ]);
             $updateInfoArray = [

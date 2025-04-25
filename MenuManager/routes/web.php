@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('/home/{locale}', [PagesController::class, 'home_page'])->name('home.page');
 Route::get('/{cat}/{locale}', [PagesController::class, 'cat_page'])->name('cat.page');
 Route::get('/pratos/{dish_id}/{locale}', [PagesController::class, 'dish_page_client'])->name('dishClient.page');
+Route::get('/about/{locale}', [PagesController::class, 'about_page'])->name('about.page');
 
 //<span class="row-span-5">{{json_decode($dish->description, true)['desc_'.app()->getLocale()];}}</span>
 
