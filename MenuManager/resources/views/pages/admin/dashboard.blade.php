@@ -71,7 +71,7 @@
                     </span>
                 </a>
 
-                <a class="relative text-black bg-[#D32F2F] shadow w-40 h-40 rounded-2xl cursor-pointer flex justify-center items-center hover:w-45 hover:h-45 transition-all duration-300 ease-in-out" href="{{ route('status.page', ['locale' => 'pt'])}}">
+                <a class="relative text-black bg-[#D32F2F] shadow w-40 h-40 rounded-2xl cursor-pointer flex justify-center items-center hover:w-45 hover:h-45 transition-all duration-300 ease-in-out" href="{{ route('admin.about.page', ['locale' => 'pt'])}}">
                     <i class="material-icons" style="font-size: 150px">person</i> 
                     <span class="absolute font-bold text-white  bottom-2 text-sm rounded-2xl p-2 bg-gray-400/40">
                         Sobre

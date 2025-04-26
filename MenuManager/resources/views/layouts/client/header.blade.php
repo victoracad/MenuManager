@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/components/universeIO.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="{{ asset('js/script.js') }}"></script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -27,4 +29,5 @@
 <body class="flex flex-col h-auto pt-20 pb-20 bg-[#ffff]">
     @yield('main')
 </body>
+
 </html>

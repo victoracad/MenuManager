@@ -18,7 +18,8 @@ Route::get('/', function () {
 Route::get('/home/{locale}', [PagesController::class, 'home_page'])->name('home.page');
 Route::get('/{cat}/{locale}', [PagesController::class, 'cat_page'])->name('cat.page');
 Route::get('/pratos/{dish_id}/{locale}', [PagesController::class, 'dish_page_client'])->name('dishClient.page');
-Route::get('/about/{locale}', [PagesController::class, 'about_page'])->name('about.page');
+Route::get('/info/about/{locale}', [PagesController::class, 'about_page'])->name('about.page');
+//Route::get('/info/teste/{locale}', [PagesController::class, 'teste'])->name('teste.page');
 
 //<span class="row-span-5">{{json_decode($dish->description, true)['desc_'.app()->getLocale()];}}</span>
 
@@ -35,6 +36,7 @@ Route::get('/admin/users/{locale}', [PagesController::class, 'users_page'])->nam
 Route::get('/admin/createuser/{locale}', [PagesController::class, 'createuser_page'])->name('createuser.page')->middleware('auth');
 Route::get('/admin/status/{locale}', [PagesController::class, 'status_page'])->name('status.page')->middleware('auth');
 Route::get('/admin/statsSystem/{locale}', [PagesController::class, 'statsSystem_page'])->name('statsSystem.page')->middleware('auth');
+Route::get('/admin/about/{locale}', [PagesController::class, 'admin_about_page'])->name('admin.about.page')->middleware('auth');
 
 
 /**ACTIONS*/

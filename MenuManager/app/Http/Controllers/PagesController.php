@@ -97,6 +97,10 @@ class PagesController extends Controller
         App::setLocale($locale);
         return view('pages.admin.statsSystem', ['userauth' => Auth::user(), ]);
     }
+    public function admin_about_page($locale){
+        App::setLocale($locale);
+        return view('pages.admin.about', ['userauth' => Auth::user(), ]);
+    }
 
 
 
@@ -145,9 +149,14 @@ class PagesController extends Controller
         return view('pages.client.dish', ['dish' => $dish, 'urlNoLocation' => $baseUrl, 'formatter' => $formatter]);
     }
     public function about_page($locale){
-        dd($locale);
+        $currentUrl = url()->current(); 
+        $segments = explode('/', $currentUrl);
+        array_pop($segments); 
+        $baseUrl = implode('/', $segments);
         App::setLocale($locale);
         $this->RegisterSiteVisit();
-        return view('pages.client.about');
+        return view('pages.client.about', ['urlNoLocation' => $baseUrl]);
     }
+
+
 }

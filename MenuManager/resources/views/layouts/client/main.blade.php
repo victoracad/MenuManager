@@ -139,7 +139,7 @@
 
     </section>
 
-    <footer class="fixed flex text-white justify-center items-center bottom-0 bg-red-600 h-20 w-full">
+    <footer class="fixed flex text-white justify-center items-center bottom-0 z-3 bg-red-600 h-20 w-full">
         <h1>Todos os direitos reservados</h1>
     </footer>
 
