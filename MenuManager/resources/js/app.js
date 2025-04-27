@@ -18,3 +18,13 @@ document.addEventListener("DOMContentLoaded", function(){
       });
     priceMask.mask(document.querySelector('.price'));
 })
+document.addEventListener("DOMContentLoaded", function() {
+  const phoneMask = new Inputmask({
+      mask: "(99)99999-9999",
+      placeholder: "_",           // Pode mudar o caractere se quiser
+      showMaskOnHover: false,      // Opcional: não mostrar a máscara quando o mouse passa
+      showMaskOnFocus: true,       // Mostrar a máscara quando focar no input
+      clearIncomplete: true,       // Limpa o campo se o usuário não completar tudo
+  });
+  phoneMask.mask(document.querySelector('.phone'));
+});

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home/pt');
 });
 /**PAGES*/
 
@@ -47,6 +47,7 @@ Route::post('/admin/editDish_action/{dish_id}/{locale}', [DishController::class,
 Route::post('/admin/createUser_action/{locale}', [AuthController::class, 'createUser'])->name('createUser.action');//->middleware('auth');
 Route::post('/admin/deleteUser/{user_id}/{locale}', [AuthController::class, 'deleteUser'])->name('deleteUser.action')->middleware('auth');
 Route::post('/admin/deleteDish/{dish_id}/{locale}', [DishController::class, 'deleteDish'])->name('deleteDish.action')->middleware('auth');
+Route::post('/admin/updateAbout/{locale}', [DishController::class, 'updateAbout'])->name('updateAbout.action')->middleware('auth');
 Route::get('/admin/changeDishStatus/{dish_id}', [DishController::class, 'changeStatusDish'])->name('changeStatusDish.action')->middleware('auth');
 
 //endpoints

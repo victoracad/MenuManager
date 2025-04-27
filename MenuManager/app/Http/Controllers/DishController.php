@@ -6,6 +6,7 @@ use App\Models\Dish;
 use App\Models\User;
 use App\Models\Statdish;
 use App\Models\Systemevent;
+use App\Models\About;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,8 @@ class DishController extends Controller
         return $imageName;
     }
     public function apiGptTranslate($desc_pt){
-        $apiKey = "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";
+        
+        $apiKey = env('APIKEYGPT');
         $url = "https://api.openai.com/v1/chat/completions";
 
         $data = [
@@ -71,7 +73,6 @@ class DishController extends Controller
             Statdish::create([
                 'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
                 'period' => date('Y/m'), 
-                'month' => date('n'), 
             ]);
             $updateInfoArray = [
                 'name' => $request->name,
@@ -323,6 +324,43 @@ class DishController extends Controller
         }
     
         
+    }
+    public function updateAbout(Request $request, $locale){
+        //dd($request);
+        $localizationsArray = [];
+        $localizationsArray['latitude'] = $request->latitude;
+        $localizationsArray['longitude'] = $request->longitude;
+        $localizationsArray['address'] = $request->address;
+
+        $localizationsJSON = json_encode($localizationsArray);
+        
+        if ($request->image) {
+            About::updateOrInsert(
+                ['id' => 1],
+                [
+                    'description' => $request->description,
+                    'image' => $this->imageTreat($request->image, 'imagesAbout/'),
+                    'localizations' => $localizationsJSON,
+                    'url_facebook' => $request->url_facebook,
+                    'url_instagram' => $request->url_instagram,
+                    'telefone' => $request->telefone,
+                ]
+            );
+        }else{
+            About::updateOrInsert(
+                ['id' => 1],
+                [
+                    'description' => $request->description,
+                    'localizations' => $localizationsJSON,
+                    'url_facebook' => $request->url_facebook,
+                    'url_instagram' => $request->url_instagram,
+                    'telefone' => $request->telefone,
+                ]
+            );
+        }
+        
+
+        return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Sobre, Alterado com sucesso');
     }
 
     //endpoint

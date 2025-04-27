@@ -12,10 +12,10 @@
         </div>
         <div class="flex flex-col gap-3 p-2">
             <span class="text-4xl font-bold">{{$dish->name}}</span>
-            <span class="text-3xl">{{json_decode($dish->description, true)['desc_in'];}}</span>
+            <span class="text-3xl">{{json_decode($dish->description, true)['desc_pt'];}}</span>
             <div class="flex justify-between text-4xl font-bold">
                 <span class="text-green-800">{{ $formatter->formatCurrency($dish->price, 'BRL') }}</span>
-                <span class="">servem:<i class="material-icons " style="font-size: 30px">man</i><i class="material-icons " style="font-size: 30px">man</i><i class="material-icons " style="font-size: 30px">man</i>    </span>
+                <span class="flex items-center gap-2"><i class="material-icons " style="font-size: 50px">visibility</i>{{$dish->statdish->views}}</span>
                 <span class="text-orange-400 font-bold">Número: {{$dish->numMenu}}</span>
             </div>
             

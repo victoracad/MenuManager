@@ -86,9 +86,9 @@
                         
                     </div>
                     <div class="grid grid-rows-10 w-[70%] p-4">
-                        <h2 class="flex items-center font-bold row-span-3 text-3xl">Cerveja Tijuca</h2>
-                        <span class="row-span-5">Cerveja Tijuca, bem gelada.</span>
-                        <span class="row-span-2 text-green-700 font-bold text-2xl">R$12,99</span>
+                        <h2 class="flex items-center font-bold row-span-3 text-3xl">Nome do Seu Prato</h2>
+                        <span class="row-span-5">Descrição do seu prato</span>
+                        <span class="row-span-2 text-green-700 font-bold text-2xl">R$99,99</span>
                     </div>   
                 
             </div>

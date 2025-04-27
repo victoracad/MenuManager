@@ -19,12 +19,8 @@
             <a href="{{ route('users.page', ['locale' => 'pt'])}}">Gerentes</a>
         </div>
         <div class="flex  gap-2 items-center p-1 ">
-            <i class="material-icons " style="font-size: 30px">post_add</i> 
-            <a href="">Postagens</a>
-        </div>
-        <div class="flex  gap-2 items-center p-1 ">
-            <i class="material-icons " style="font-size: 30px">trending_up</i> 
-            <a href="{{ route('statsSystem.page', ['locale' => 'pt'])}}">Stats System</a>
+            <i class="material-icons " style="font-size: 30px">person</i> 
+            <a href="{{ route('admin.about.page', ['locale' => 'pt'])}}">Sobre</a>
         </div>
         <div class="flex  gap-2 items-center p-1 ">
             <i class="material-icons " style="font-size: 30px">sort</i> 
@@ -118,15 +114,12 @@
             const itemId = btn.getAttribute('data-id');
             const TypeId = btn.getAttribute('id');
             if(itemId == "logout"){
-                //alert('1');
                 formAction.setAttribute('action', `/admin/logout/pt`);
-                //modal.classList.remove('hidden');
+                modal.classList.remove('hidden');
             }else if(TypeId == "dish"){
-                //alert('2');
                 formAction.setAttribute('action', `/admin/deleteDish/${itemId}/pt`);
                 modal.classList.remove('hidden');
             }else{
-                //walert('3')
                 formAction.setAttribute('action', `/admin/deleteUser/${itemId}/pt`);
 
                 modal.classList.remove('hidden');

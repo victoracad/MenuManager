@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('views')->unsigned()->nullable()->default(0);
             $table->string('period');
-            $table->integer('month');
             $table->foreignId('dishes_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

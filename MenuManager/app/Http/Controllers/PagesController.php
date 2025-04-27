@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Systemevent;
 use App\Models\Statdish;
 use App\Models\Sitestat;
+use App\Models\About;
 
 
 
@@ -46,13 +47,18 @@ class PagesController extends Controller
     public function dashboard($locale){
         $viewsSiteMonth = Sitestat::where('period', date('Y/m'))
         ->first();
+        $allViewsSite = Sitestat::all();
+        $totalviewsSite = 0;
+        foreach ($allViewsSite as $ViewsSite) {
+            $totalviewsSite = $totalviewsSite + $ViewsSite->views;
+        }
 
         $mostViewsDish = Statdish::whereNotNull('views')
         ->where('period', date('Y/m'))
         ->orderByDesc('views')
         ->first();
         App::setLocale($locale);
-        return view('pages.admin.dashboard', ['userauth' => Auth::user(), 'DishViews' => $mostViewsDish, 'siteViews' => $viewsSiteMonth]);
+        return view('pages.admin.dashboard', ['userauth' => Auth::user(), 'DishViews' => $mostViewsDish, 'siteViews' => $viewsSiteMonth, 'AllViews' => $totalviewsSite]);
     }
     public function dishes_page($locale){
         App::setLocale($locale);
@@ -99,11 +105,9 @@ class PagesController extends Controller
     }
     public function admin_about_page($locale){
         App::setLocale($locale);
-        return view('pages.admin.about', ['userauth' => Auth::user(), ]);
+        $about = About::where('id', 1)->first();
+        return view('pages.admin.about', ['userauth' => Auth::user(), 'about' => $about]);
     }
-
-
-
 
     /*** PAGESCONTROLLERS CLIENTE */
     public function home_page($locale){
@@ -149,13 +153,15 @@ class PagesController extends Controller
         return view('pages.client.dish', ['dish' => $dish, 'urlNoLocation' => $baseUrl, 'formatter' => $formatter]);
     }
     public function about_page($locale){
+        $about = About::where('id', 1)->first();
+
         $currentUrl = url()->current(); 
         $segments = explode('/', $currentUrl);
         array_pop($segments); 
         $baseUrl = implode('/', $segments);
         App::setLocale($locale);
         $this->RegisterSiteVisit();
-        return view('pages.client.about', ['urlNoLocation' => $baseUrl]);
+        return view('pages.client.about', ['urlNoLocation' => $baseUrl, 'about' => $about]);
     }
 
 
