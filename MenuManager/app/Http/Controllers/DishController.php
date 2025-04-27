@@ -363,9 +363,4 @@ class DishController extends Controller
         return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Sobre, Alterado com sucesso');
     }
 
-    //endpoint
-    public function index()
-    {
-        return response()->json(Statdish::all());
-    }
 }

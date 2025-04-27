@@ -19,12 +19,9 @@ Route::get('/home/{locale}', [PagesController::class, 'home_page'])->name('home.
 Route::get('/{cat}/{locale}', [PagesController::class, 'cat_page'])->name('cat.page');
 Route::get('/pratos/{dish_id}/{locale}', [PagesController::class, 'dish_page_client'])->name('dishClient.page');
 Route::get('/info/about/{locale}', [PagesController::class, 'about_page'])->name('about.page');
-//Route::get('/info/teste/{locale}', [PagesController::class, 'teste'])->name('teste.page');
 
-//<span class="row-span-5">{{json_decode($dish->description, true)['desc_'.app()->getLocale()];}}</span>
 
 /*ADMIN PAGES*/
-//Route::get('/cusers', [AuthController::class, 'index'])->name('user.index');
 Route::get('/admin/login/{locale}', [PagesController::class, 'login_page'])->name('login');
 Route::get('/admin/dashboard/{locale}', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/admin/pratos/{locale}', [PagesController::class, 'dishes_page'])->name('dishes.page')->middleware('auth');
@@ -49,6 +46,3 @@ Route::post('/admin/deleteUser/{user_id}/{locale}', [AuthController::class, 'del
 Route::post('/admin/deleteDish/{dish_id}/{locale}', [DishController::class, 'deleteDish'])->name('deleteDish.action')->middleware('auth');
 Route::post('/admin/updateAbout/{locale}', [DishController::class, 'updateAbout'])->name('updateAbout.action')->middleware('auth');
 Route::get('/admin/changeDishStatus/{dish_id}', [DishController::class, 'changeStatusDish'])->name('changeStatusDish.action')->middleware('auth');
-
-//endpoints
-Route::get('/api/pratos/{locale}', [DishController::class, 'index']);
