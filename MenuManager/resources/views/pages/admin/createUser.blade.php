@@ -10,33 +10,58 @@
             @csrf
             <div class="flex flex-col">
                 <label for="name" class="">Nome</label>
-                <input class="border rounded-3xl h-12 p-2" type="text" name="name" id="name" required>
+                <input class="border rounded-3xl h-12 p-2" type="text" name="name" id="name" >
+                @error('name')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="flex flex-col">
                 <label for="username">Nome De Usuário</label>
-                <input class="border rounded-3xl h-12 p-2" type="text" name="username" id="username" required>
+                <input class="border rounded-3xl h-12 p-2" type="text" name="username" id="username" >
+                @error('username')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="flex flex-col">
                 <label for="username">Crie uma senha</label>
-                <input class="border rounded-3xl h-12 p-2" type="password" name="password" id="password" required>
+                <input class="border rounded-3xl h-12 p-2" type="password" name="password" id="password" >
+                @error('password')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <div>
                 <label>
-                    <input type="radio" name="admin_type" value="Master" required> Master
+                    <input type="radio" name="admin_type" value="Master" > Master
                 </label>
                 <label>
-                    <input type="radio" name="admin_type" value="Normal" required> Normal
+                    <input type="radio" name="admin_type" value="Normal" > Normal
                 </label>
+                @error('admin_type')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             
             
             <div class="flex justify-end items-center gap-5">
                 <label class="cursor-pointer" for="avatar_image"><i class="material-icons" style="font-size: 30px">add_photo_alternate</i></label>
-                <input hidden type="file" name="avatar_image" id="avatar_image" required>
+                <input hidden type="file" name="avatar_image" id="avatar_image" >
                 <div class="shadow w-40 h-40 rounded-2xl overflow-hidden flex">
                     <img class="object-cover w-full h-full " src="/images/placeholders/avatar_placeholder.png" alt="">
                 </div>
+                @error('avatar_image')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="flex justify-center items-center">
                 <input class="cursor-pointer h-12 rounded-3xl text-white font-bold bg-green-400 w-[50%]" type="submit" value="Criar Usuário">

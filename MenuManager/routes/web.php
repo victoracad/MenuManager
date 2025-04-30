@@ -34,6 +34,7 @@ Route::get('/admin/createuser/{locale}', [PagesController::class, 'createuser_pa
 Route::get('/admin/status/{locale}', [PagesController::class, 'status_page'])->name('status.page')->middleware('auth');
 Route::get('/admin/statsSystem/{locale}', [PagesController::class, 'statsSystem_page'])->name('statsSystem.page')->middleware('auth');
 Route::get('/admin/about/{locale}', [PagesController::class, 'admin_about_page'])->name('admin.about.page')->middleware('auth');
+Route::get('/admin/test/{locale}', [DishController::class, 'test'])->name('test')->middleware('auth');
 
 
 /**ACTIONS*/

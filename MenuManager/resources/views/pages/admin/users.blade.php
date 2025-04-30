@@ -7,9 +7,11 @@
             GERENCIADOR DE ADMINISTRADORES
         </h1>
     </div>
-    <div class="w-full flex justify-end">
-        <a class="bg-green-400 hover:bg-green-500 rounded-full font-bold text-white h-10 p-6 flex items-center justify-center" href="{{ route('createuser.page', ['locale'=>'pt']) }}"> <i class="material-icons mr-2" style="font-size: 30px">person_add</i>Adicionar um novo gerente</a>
-    </div>
+    @if ($userauth->admin_type == 'Master')
+        <div class="w-full flex justify-end">
+            <a class="bg-green-400 hover:bg-green-500 rounded-full font-bold text-white h-10 p-6 flex items-center justify-center" href="{{ route('createuser.page', ['locale'=>'pt']) }}"> <i class="material-icons mr-2" style="font-size: 30px">person_add</i>Adicionar um novo gerente</a>
+        </div>
+    @endif
     
     <div class="flex flex-col w-full p-2 gap-2 text-[20px]">
         <div class="border-b border-black grid grid-cols-12">

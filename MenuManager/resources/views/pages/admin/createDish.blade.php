@@ -14,6 +14,11 @@
                 <div class="flex flex-col text-4xl font-bold">
                     <input placeholder="Ex: Carne ao Molho" class="border-none focus:outline-none h-18 rounded-2xl p-2" type="text" name="name" id="name" required>
                 </div>
+                @error('name')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <div>
@@ -22,12 +27,22 @@
                     <img id="preview_image_1" src="/images/placeholders/placeholder_image.png" alt="" class=" h-100 shadow-2xl rounded-3xl">
                     <input accept="image/*" hidden type="file" name="image_1" id="image_1" required>
                 </div>
+                @error('image_1')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <div>
                 <div class="flex flex-col text-3xl p-3">
                     <textarea maxlength="150" placeholder="Ex: Carne bovina cozida com molho caseiro de tomate, cebola e temperos selecionados." class="border flex justify-center border-none focus:outline-none h-42 rounded-2xl p-2" name="description" id="description" required></textarea>
                 </div>
+                @error('description')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <div>
@@ -39,6 +54,11 @@
                             class="price pl-20 rounded-2xl h-12 w-full text-green-400 font-bold border-none focus:outline-none focus:appearance-none" 
                             placeholder="0,00" required>
                         </div>
+                        @error('price')
+                            <div class="text-red-500 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     
                     <div class="w-[28%]">
@@ -48,6 +68,11 @@
                     <div class="w-[27%] flex text-red-500">
                         <label  class="font-bold text-5xl" for="numMenu">№</label>
                         <input placeholder="0" class="border text-5xl h-12 w-full border-none focus:outline-none font-bold rounded-2xl p-3" type="text" inputmode="numeric" maxlength="5" pattern="\d*" name="numMenu" id="numMenu" required>
+                        @error('numMenu')
+                            <div class="text-red-500 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -55,7 +80,7 @@
             <div>
                 <label class="font-bold text-3xl" for="type">Categoria</label>
                         <div>
-                            <select id="type" name="type" class="border rounded-2xl h-12 w-full text-2xl ">
+                            <select id="type" name="type" class="border rounded-2xl h-12 w-full text-2xl " required>
                                 <option value="Carne_Bovina">Carne Bovina</option>
                                 <option value="Carne_Suina">Carne Suína</option>
                                 <option value="Frango">Frango</option>
@@ -65,6 +90,11 @@
                                 <option value="Porcoes">Porções</option>
                             </select>
                         </div>
+                        @error('type')
+                            <div class="text-red-500 text-sm">
+                                {{ $message }}
+                            </div>
+                        @enderror
             </div>
         </div>
         <hr>
@@ -93,6 +123,11 @@
                 
             </div>
         </div>
+        @error('image_2')
+            <div class="text-red-500 text-sm">
+                {{ $message }}
+            </div>
+        @enderror
 
         <div class="flex justify-center">
             <input class="bg-green-400 w-[50%] h-12 text-white font-bold text-2xl rounded-2xl hover:bg-green-500 cursor-pointer" type="submit" value="Criar Prato">

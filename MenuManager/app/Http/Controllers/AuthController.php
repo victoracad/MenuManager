@@ -41,6 +41,28 @@ class AuthController extends Controller
     }
     public function createUser(Request $request, $locale){
         $updateInfoArray = [];
+        $request->validate([
+                'username' => 'required|string|unique:users,username|min:5|max:20',
+                'name' => 'required|string|min:5|max:20',
+                'password' => 'required|string|min:8',
+                'admin_type' => 'required',
+                'avatar_image' => 'required|image',
+            ],
+            [
+                'username.required' => 'Por favor, informe um nome de usuário.',
+                'username.min' => 'O nome de usuário precisa ter pelomenos 5 caracteres.',
+                'username.max' => 'O nome de usuário não pode ter mais de 20 caracteres.',
+                'username.unique' => 'O nome de usuário já foi escolhido.',
+                'name.required' => 'Por favor, informe um nome.',
+                'name.min' => 'O nome precisa ter pelomenos 5 caracteres.',
+                'name.max' => 'O nome não pode ter mais de 20 caracteres.',
+                'password.required' => 'Senha é obrigatória.',
+                'password.min' => 'A senha precisa ter pelo menos 8 caracteres.',
+                'admin_type.required' => 'Escolha uma das opções.',
+                'avatar_image.required' => 'Insira uma imagem.',
+                'avatar_image.image' => 'O arquivo não é aceito.',
+            ]
+        );
         if ($request->hasFile('avatar_image')) { 
              $avatar_image = $this->imageTreat($request->avatar_image, 'imagesusers/');
         }
@@ -72,11 +94,15 @@ class AuthController extends Controller
 
     }
     public function deleteUser($user_id, $locale){
+        $user = User::where('id', $user_id)->first();
         $updateInfoArray = [];
         if(Auth::user()->admin_type === 'Master' && Auth::id() != $user_id){
             $updateInfoArray = [
                 'username' => User::where('id', $user_id)->first()->username,
             ];
+            if (file_exists(public_path('images/imagesusers/'.$user->profile->avatar_image))) {
+                unlink(public_path('images/imagesusers/'.$user->profile->avatar_image));
+            }
             User::where('id', $user_id)->delete();
             
             $updateInfo = json_encode($updateInfoArray);  

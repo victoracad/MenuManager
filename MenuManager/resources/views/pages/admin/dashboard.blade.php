@@ -52,7 +52,7 @@
             
         </div>
     </div>
-
+    
     <div class=" row-span-2 flex flex-col justify-center items-center ">
         <div class="flex flex-col w-full items-center gap-5">
             <div class="flex gap-5">
