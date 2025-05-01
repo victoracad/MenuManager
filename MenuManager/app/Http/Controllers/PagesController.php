@@ -40,7 +40,8 @@ class PagesController extends Controller
 
         return response('Visitante já contado.');
     }
-    public function login_page($locale){
+    public function login_page($locale = 'pt'){
+        App::setLocale($locale);
         return view('pages.admin.login');
     }
     public function dashboard($locale){

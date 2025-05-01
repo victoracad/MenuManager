@@ -19,9 +19,15 @@ class AuthController extends Controller
     }
     public function login(Request $request, $locale){
         $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+                'username' => 'required|string',
+                'password' => 'required|string|min:8',
+            ],
+            [
+                'username.required' => 'Por favor, informe um nome de usuário.',
+                'password.required' => 'Senha é obrigatória.',
+                'password.min' => 'A senha precisa ter pelo menos 8 caracteres.',
+            ]
+        );
         $username = $request->input('username');
         $password = $request->input('password');
         
@@ -29,7 +35,7 @@ class AuthController extends Controller
 	    {
             return redirect(route('dashboard', ['locale' => 'pt']))->with('sucess', 'Usuário fez login');
         }
-        return view('pages.admin.login')->with('error', 'Usuário ou senha incorretos');
+        return redirect(route('login', ['locale' => 'pt']))->with('error', 'Usuário ou senha incorretos');
     }
     public function logout(Request $request, $locale){
         Auth::logout(); 

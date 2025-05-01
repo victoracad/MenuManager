@@ -22,7 +22,7 @@ Route::get('/info/about/{locale}', [PagesController::class, 'about_page'])->name
 
 
 /*ADMIN PAGES*/
-Route::get('/admin/login/{locale}', [PagesController::class, 'login_page'])->name('login');
+Route::get('/admin/login/{locale?}', [PagesController::class, 'login_page'])->name('login');
 Route::get('/admin/dashboard/{locale}', [PagesController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/admin/pratos/{locale}', [PagesController::class, 'dishes_page'])->name('dishes.page')->middleware('auth');
 Route::get('/admin/criarPrato/{locale}', [PagesController::class, 'createDish_page'])->name('createDish.page')->middleware('auth');
