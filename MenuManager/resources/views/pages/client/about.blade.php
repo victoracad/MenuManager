@@ -1,7 +1,7 @@
 @extends('layouts.client.main')
 @section('title_page',  __('messages.Sobre'))
 @section('icon_menu',  'arrow_back')
-@section('funcBack',  'backPage()')
+@section('funcBack',  'back-page')
 @section('content')
     @if ($about == null)
         <h1 class="text-4xl font-bold text-center">Conheça o nosso restaurante</h1>
@@ -57,39 +57,39 @@
 
         </script>
     @else
-    <h1 class="text-4xl font-bold text-center">Conheça o nosso restaurante</h1>
-    <div>
-        <img src="/images/imagesAbout/{{$about->image}}" alt="">
-    </div>
-    <p class="text-2xl text-red-500">{{$about->description}}</p>
-    <div class="flex flex-col">
-        <h2 class="text-4xl font-bold">Informações para Contato</h2>
-        <a href="{{$about->url_facebook}}" class="text-4xl">
-            <i class="fab fa-facebook-f"></i>
-            <span>Facebook</span>
-        </a>
-        <a href="{{$about->url_instagram}}" class="text-4xl">
-            <i class="fab fa-instagram"></i>
-            <span>Instagram</span>
-        </a>
-        <div class="text-4xl">
-            <i class="fab fa-whatsapp"></i>
-            <span>{{$about->telefone}}</span>
+        <h1 class="text-4xl font-bold text-center">Conheça o nosso restaurante</h1>
+        <div>
+            <img src="/images/imagesAbout/{{$about->image}}" alt="">
         </div>
-        <span>Liga já para o nosso telefone e faça um pedido</span>
-        
-    </div>
+        <p class="text-2xl text-red-500">{{$about->description}}</p>
+        <div class="flex flex-col">
+            <h2 class="text-4xl font-bold">Informações para Contato</h2>
+            <a href="{{$about->url_facebook}}" class="text-4xl">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="{{$about->url_instagram}}" class="text-4xl">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <div class="text-4xl">
+                <i class="fab fa-whatsapp"></i>
+                <span>{{$about->telefone}}</span>
+            </div>
+            <span>Liga já para o nosso telefone e faça um pedido</span>
+            
+        </div>
 
-    <div class="relative z-1 flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Veja a nossa localização!</h2>
-        <div id="map" class="w-full h-100 border">
+        <div class="relative z-1 flex flex-col gap-2">
+            <h2 class="text-2xl font-bold">Veja a nossa localização!</h2>
+            <div id="map" class="w-full h-100 border">
 
+            </div>
+            <div class=" text-2xl">
+                <i id="iconDrop" class="material-icons " style="font-size: 30px">location_on</i> 
+                <span>{{json_decode($about->localizations, true)['address']}}</span>
+            </div>
         </div>
-        <div class=" text-2xl">
-            <i id="iconDrop" class="material-icons " style="font-size: 30px">location_on</i> 
-            <span>{{json_decode($about->localizations, true)['address']}}</span>
-        </div>
-    </div>
     
     
     
@@ -108,7 +108,7 @@
         .bindPopup('Aqui está o restaurante!')
         .openPopup();
 
-      </script>
+    </script>
     @endif
     
 @endsection

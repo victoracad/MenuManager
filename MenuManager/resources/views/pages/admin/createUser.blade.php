@@ -52,10 +52,10 @@
             
             
             <div class="flex justify-end items-center gap-5">
-                <label class="cursor-pointer" for="avatar_image"><i class="material-icons" style="font-size: 30px">add_photo_alternate</i></label>
-                <input hidden type="file" name="avatar_image" id="avatar_image" >
-                <div class="shadow w-40 h-40 rounded-2xl overflow-hidden flex">
-                    <img class="object-cover w-full h-full " src="/images/placeholders/avatar_placeholder.png" alt="">
+                <label class="cursor-pointer" for="image_1"><i class="material-icons" style="font-size: 30px">add_photo_alternate</i></label>
+                <input id="image_1" hidden type="file" name="avatar_image" >
+                <div  class="shadow w-40 h-40 rounded-2xl overflow-hidden flex">
+                    <img id="preview_image_1" class="object-cover w-full h-full " src="/images/placeholders/avatar_placeholder.png" alt="">
                 </div>
                 @error('avatar_image')
                     <div class="text-red-500 text-sm">
@@ -64,7 +64,7 @@
                 @enderror
             </div>
             <div class="flex justify-center items-center">
-                <input class="cursor-pointer h-12 rounded-3xl text-white font-bold bg-green-400 w-[50%]" type="submit" value="Criar Usuário">
+                <input  class="cursor-pointer h-12 rounded-3xl text-white font-bold bg-green-400 w-[50%]" type="submit" value="Criar Usuário">
             </div>
             
         </form>

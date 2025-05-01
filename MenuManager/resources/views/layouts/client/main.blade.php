@@ -1,8 +1,9 @@
 @extends('layouts.client.header')
 @section('main')
-    <nav class="fixed grid grid-cols-10 top-0 w-full h-20 z-2 bg-red-600">
+<div class="sm:w-[450px]">
+    <nav class="fixed sm:w-[450px] grid grid-cols-10 top-0 w-full h-20 z-2 bg-red-600">
         @hasSection('funcBack')
-            <div onclick="@yield('funcBack')" class="flex pl-6 items-center col-span-2 text-2xl text-[#ffff] font-bold">
+            <div id="@yield('funcBack')" class="cursor-pointer flex pl-6 items-center col-span-2 text-2xl text-[#ffff] font-bold">
                 <i class="material-icons " style="font-size: 45px">arrow_back</i>
             </div>
         @endif
@@ -16,19 +17,20 @@
             <h1> @yield('title_page')</h1>
         </div>
         <div 
-            onclick="toggleSidebar()"
-        class="col-span-2 flex justify-center items-center text-white"
+            class="cursor-pointer col-span-2 flex justify-center items-center text-white"
+            id="icon-menu"
         >
-            <i id="iconMenu" class="material-icons " style="font-size: 45px">menu</i> 
+            <i id="icon-burguer" class="material-icons " style="font-size: 45px">menu</i> 
         </div>
 
     </nav>
+    
 
     <section  class="w-full p-5 flex gap-5 flex-col">
         @yield('content')
     </section>
 
-    <section id="sideBar" class="fixed w-[80%] flex flex-col  bg-white z-3 h-full transform -translate-x-[100%] transition-transform top-0">
+    <section id="sideBar" class="fixed sm:w-[350px] w-[80%] flex flex-col  bg-white z-3 h-full transform -translate-x-[100%] transition-transform top-0">
 
         <div class="flex w-full h-[12%] bg-red-600">
             <div class="flex justify-center items-center w-[75%]">
@@ -89,7 +91,7 @@
         <div class="overflow-scroll flex flex-col gap-5 text-3xl p-5 pt-20 w-full h-[88%]">
             <div class="flex items-center">
                 <a href="{{ route('home.page', ['locale'=>app()->getLocale()]) }}" class="w-full">
-                    Início
+                    {{__('messages.inicio')}}
                 </a>
             </div>   
             <div class="flex items-center">
@@ -139,26 +141,14 @@
 
     </section>
 
-    <footer class="fixed flex text-white justify-center items-center bottom-0 z-3 bg-red-600 h-20 w-full">
-        <h1>Todos os direitos reservados</h1>
+    <div class="fixed sm:w-[350px] w-[80%] flex flex-col  bg-white z-3 h-full transform -translate-x-[100%] transition-transform top-0">
+
+    </div>
+
+    <footer class="fixed sm:w-[450px] flex text-white justify-center items-center bottom-0 z-3 bg-red-600 h-20 w-full">
+        <h1>&copy; Todos os direitos reservados</h1>
     </footer>
+</div>
+    
 
-    <script>
-        let sidebarOpen = false;
-       
-        const trigger = document.getElementById('trigger');
-        const dropdown = document.getElementById('dropdown');
-        const iconDrop = document.getElementById('iconDrop');
-
-        trigger.addEventListener('click', () => {
-            if (dropdown.style.maxHeight === "30px") {
-                iconDrop.innerText = "arrow_drop_up";
-                dropdown.style.maxHeight = dropdown.scrollHeight + "px"; // Altura final
-            } else {
-                iconDrop.innerText = "arrow_drop_down";
-                dropdown.style.maxHeight = "30px";
-            }
-        });
-
-    </script>
 @endsection

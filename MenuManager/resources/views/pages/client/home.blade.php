@@ -95,10 +95,10 @@
         </a>
     </div>
 
-    
     <script>
         const carousel = document.getElementById('carousel');
         const totalSlides = carousel.children.length;
         let index = 0;
     </script>
+
 @endsection

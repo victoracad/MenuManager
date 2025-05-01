@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'title' => 'Menu Picanha do Beto',
+    'title' => 'Menu Restaurant',
+    'inicio' => 'Home',
     'Carne_Bovina' => 'Beef',
     'Carne_Suina' => 'Pork ribs',
     'Frango' => 'Chicken',

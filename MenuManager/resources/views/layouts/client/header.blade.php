@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -14,8 +13,6 @@
     <link rel="stylesheet" href="/css/components/universeIO.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="{{ asset('js/script.js') }}"></script>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <style>
@@ -24,10 +21,15 @@
             font-family: "Roboto", sans-serif;
         }
     </style>
+    
 </head>
 
-<body class="flex flex-col h-auto pt-20 pb-20 bg-[#ffff]">
+<script src="{{ asset('js/script.js') }}" defer></script>
+
+<body class=" flex flex-col justify-center items-center h-auto pt-20 pb-20 bg-[#ffff]">
     @yield('main')
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

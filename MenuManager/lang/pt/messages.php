@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'title' => 'Cardápio Picanha do Beto',
+    'title' => 'Cardápio Restaurante',
+    'inicio' => 'Início',
     'Carne_Bovina' => 'Carne Bovina',
     'Carne_Suina' => 'Costela Suína',
     'Frango' => 'Frango',

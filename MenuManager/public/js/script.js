@@ -1,25 +1,43 @@
-document.addEventListener("click", function (event) { 
-    if (event.target && event.target.id === "status") {
-        alert('en');
-        
-    }
-});
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".change-status").forEach(checkbox => {
-        checkbox.addEventListener("click", function () {
-            let dish_id = this.dataset.id;
-            $.ajax({
-                url: `/admin/changeDishStatus/${dish_id}`,  
-                type: "GET",  
-                success: function(data) {
-                    $(`#dishSpanCheckbox-${dish_id}`).html(data.status);
-                },
-                error(){
-                    alert('Algo deu errado');
-                }
-            });
+    //SideBarFunction
+    let sidebarOpen = false;
+    const iconMenuWrapper = document.getElementById('icon-menu');
+    const iconMenu = document.getElementById('icon-burguer');
+    const sidebar = document.getElementById('sideBar');
+
+    if (iconMenuWrapper && iconMenu && sidebar) {
+        iconMenuWrapper.addEventListener('click', function () {
+            if (sidebarOpen) {
+                iconMenu.innerText = "menu";
+                sidebar.style.transform = 'translateX(0%)';
+            } else {
+                iconMenu.innerText = "close";
+                sidebar.style.transform = 'translateX(100%)';
+            }
+
+            sidebarOpen = !sidebarOpen;
         });
+    }
+    /************************************************************/
+    //Dropdown Function Translate
+    const trigger = document.getElementById('trigger');
+    const dropdown = document.getElementById('dropdown');
+    const iconDrop = document.getElementById('iconDrop');
+
+    trigger.addEventListener('click', () => {
+        if (dropdown.style.maxHeight === "30px") {
+            iconDrop.innerText = "arrow_drop_up";
+            dropdown.style.maxHeight = dropdown.scrollHeight + "px"; // Altura final
+        } else {
+            iconDrop.innerText = "arrow_drop_down";
+            dropdown.style.maxHeight = "30px";
+        }
+    });
+    /*************************************************************/
+
+    document.getElementById('back-page').addEventListener('click', function(){
+        window.history.back();
     });
 });
 
@@ -55,44 +73,3 @@ document.getElementById('image_2').addEventListener('change', function(event) {
         alert('Por favor, selecione uma imagem válida.');
     }
 });
-
-function backPage() {
-    window.history.back();
-}
-
-function updateSlide() {
-    carousel.style.transform = `translateX(-${index * 100}%)`;
-}
-function nextSlide() {
-    index = (index + 1) % totalSlides;
-    updateSlide(index);
-}
-function prevSlide() {
-    index = (index - 1 + totalSlides) % totalSlides;
-    updateSlide();
-}
-function test(){
-    const sideBar = document.getElementById('sideBar');
-    sideBar.style.transform = `translateX(0%)`;
-}
-
-
-
-function toggleSidebar() {
-  const sidebar = document.getElementById('sideBar');
-  const iconMenu = document.getElementById('iconMenu');
-
-  if (sidebarOpen) {
-    iconMenu.innerText = "menu";
-    sidebar.style.transform = 'translateX(0%)';
-  } else {
-    iconMenu.innerText = "close";
-    sidebar.style.transform = 'translateX(100%)';
-  }
-
-  sidebarOpen = !sidebarOpen;
-}
-
-
-
-//SISTEMA DO MODEL DE CONFIRMAÇÃO 

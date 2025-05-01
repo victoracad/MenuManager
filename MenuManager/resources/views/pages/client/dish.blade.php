@@ -1,7 +1,7 @@
 @extends('layouts.client.main')
 @section('title_page',  $dish->name)
 @section('icon_menu',  'arrow_back')
-@section('funcBack',  'backPage()')
+@section('funcBack',  'back-page')
 @section('content')
 <div class="w-full bg-gray-100 p-2 rounded-2xl">
     <div class="flex flex-col gap-2">

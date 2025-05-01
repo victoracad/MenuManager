@@ -1,7 +1,7 @@
 @extends('layouts.client.main')
 @section('title_page',  __('messages.'. $cat))
 @section('icon_menu',  'arrow_back')
-@section('funcBack',  'backPage()')
+@section('funcBack',  'back-page')
 @section('content')
 @foreach ($dishes as $dish)
 <a href="{{ route('dishClient.page', ['dish_id'=>$dish->id, 'locale'=>app()->getLocale()]) }}" class="flex rounded-2xl h-35 bg-neutral-50 shadow-2xl">

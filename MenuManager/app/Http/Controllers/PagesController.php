@@ -40,7 +40,6 @@ class PagesController extends Controller
 
         return response('Visitante já contado.');
     }
-
     public function login_page($locale){
         return view('pages.admin.login');
     }
