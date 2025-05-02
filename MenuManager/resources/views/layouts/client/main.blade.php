@@ -141,7 +141,7 @@
 
     </section>
 
-    <div class="fixed sm:w-[350px] w-[80%] flex flex-col  bg-white z-3 h-full transform -translate-x-[100%] transition-transform top-0">
+    <div class="fixed sm:w-[350px] hidden w-[80%] sm:flex flex-col  bg-white z-3 h-full transform -translate-x-[100%] transition-transform top-0">
 
     </div>
 

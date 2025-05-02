@@ -26,7 +26,7 @@
 
 <script src="{{ asset('js/script.js') }}" defer></script>
 
-<body class=" flex flex-col justify-center items-center h-auto pt-20 pb-20 bg-[#ffff]">
+<body class=" flex flex-col sm:justify-center sm:items-center h-auto pt-20 pb-20 bg-[#ffff]">
     @yield('main')
 </body>
 

@@ -79,37 +79,45 @@ class DishController extends Controller
             ]
         );
         if ($request->hasFile('image_1') && $request->hasFile('image_2')) {
-            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
-            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
-            $imagesJson = json_encode($images);
-            //dd($request->description);
             //SISTEMA DE TRADUÇÃO
             $description_lg = $this->apiGptTranslate($request->description);
-            $data = json_decode($description_lg);
-            $descriptions_lg = $data->choices[0]->message->content;
-            ////////////
+            $response = json_decode($description_lg, true); 
 
-            $dish = Dish::create([
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ]);
+            if (isset($response['error'])) {
+                // erro na resposta da API
+                return redirect(route('dashboard', ['locale' => 'pt']))->with('error', 'Erro ao criar o prato');
+            } else {
+                // Resposta válida, continuar com o processamento
+                $data = json_decode($description_lg);
+                $descriptions_lg = $data->choices[0]->message->content;
+                ////////////
+                $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
+                $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+                $imagesJson = json_encode($images);
+
+                $dish = Dish::create([
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ]);
+                
+                Statdish::create([
+                    'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
+                    'period' => date('Y/m'), 
+                ]);
+                $updateInfoArray = [
+                    'name' => $request->name,
+                    'images' => $imagesJson,
+                    'description' => $descriptions_lg,
+                    'price' => $request->price,
+                    'type' => $request->type,
+                    'numMenu' => $request->numMenu,
+                ];
+            }
             
-            Statdish::create([
-                'dishes_id' => $dish->id, // Pega o ID do produto recém-criado
-                'period' => date('Y/m'), 
-            ]);
-            $updateInfoArray = [
-                'name' => $request->name,
-                'images' => $imagesJson,
-                'description' => $descriptions_lg,
-                'price' => $request->price,
-                'type' => $request->type,
-                'numMenu' => $request->numMenu,
-            ];
         }
         
         $updateInfo = json_encode($updateInfoArray);  
@@ -151,11 +159,7 @@ class DishController extends Controller
         $updateInfoArray = [];
         
         if ($request->hasFile('image_1') && !($request->hasFile('image_2'))) {//Mudou só primeira imagem
-            if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']))) {
-                unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']));
-            }
-            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
-            $imagesJson = json_encode($images);
+
             if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
                 Dish::where('id', $dish_id)->update([
                     'name' => $request->name,
@@ -174,35 +178,44 @@ class DishController extends Controller
             }else{//Mudou a descrição
                 //SISTEMA DE TRADUÇÃO
                 $description_lg = $this->apiGptTranslate($request->description);
-                $data = json_decode($description_lg);
-                $descriptions_lg = $data->choices[0]->message->content;
-                ////////////
+                $response = json_decode($description_lg, true); 
+                if (isset($response['error'])) {
+                    // erro na resposta da API
+                    return redirect(route('dashboard', ['locale' => 'pt']))->with('error', 'Erro ao criar o prato');
+                } else {
+                    if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']))) {
+                        unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']));
+                    }
+                    $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
+                    $imagesJson = json_encode($images);
+                    $data = json_decode($description_lg);
+                    $descriptions_lg = $data->choices[0]->message->content;
+                    ////////////
 
-                Dish::where('id', $dish_id)->update([
-                    'name' => $request->name,
-                    'images' => $imagesJson,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ]);
-                $updateInfoArray = [
-                    'name' => $request->name,
-                    'images' => $imagesJson,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ];
+                    Dish::where('id', $dish_id)->update([
+                        'name' => $request->name,
+                        'images' => $imagesJson,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ]);
+                    $updateInfoArray = [
+                        'name' => $request->name,
+                        'images' => $imagesJson,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ];
+                }
+
+                
             }
             
         }
         if ($request->hasFile('image_2') && !($request->hasFile('image_1'))) {//Mudou só segunda imagem
-            if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']))) {
-                unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']));
-            }
-            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
-            $imagesJson = json_encode($images);
+
             if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
                 Dish::where('id', $dish_id)->update([
                     'name' => $request->name,
@@ -221,38 +234,42 @@ class DishController extends Controller
             }else{//Mudou a descrição
                 //SISTEMA DE TRADUÇÃO
                 $description_lg = $this->apiGptTranslate($request->description);
-                $data = json_decode($description_lg);
-                $descriptions_lg = $data->choices[0]->message->content;
-                ////////////
+                $response = json_decode($description_lg, true); 
+                if (isset($response['error'])) {
+                    // erro na resposta da API
+                    return redirect(route('dashboard', ['locale' => 'pt']))->with('error', 'Erro ao criar o prato');
+                } else {
+                    if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']))) {
+                        unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']));
+                    }
+                    $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+                    $imagesJson = json_encode($images);
+                    $data = json_decode($description_lg);
+                    $descriptions_lg = $data->choices[0]->message->content;
+                    ////////////
 
-                Dish::where('id', $dish_id)->update([
-                    'name' => $request->name,
-                    'images' => $imagesJson,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ]);
-                $updateInfoArray = [
-                    'name' => $request->name,
-                    'images' => $imagesJson,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ];
+                    Dish::where('id', $dish_id)->update([
+                        'name' => $request->name,
+                        'images' => $imagesJson,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ]);
+                    $updateInfoArray = [
+                        'name' => $request->name,
+                        'images' => $imagesJson,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ];
+                }
+                
             }
         }
         if($request->hasFile('image_2') && ($request->hasFile('image_1'))){//Mudou as duas imagens
-            if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']))) {
-                unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']));
-            }
-            if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']))) {
-                unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']));
-            }
-            $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
-            $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
-            $imagesJson = json_encode($images);
+            
             if(json_decode(Dish::find($dish_id)->description)->desc_pt == $request->description){//Não mudou a descrição
                 Dish::where('id', $dish_id)->update([
                     'name' => $request->name,
@@ -271,26 +288,42 @@ class DishController extends Controller
             }else{//Mudou a descrição
                 //SISTEMA DE TRADUÇÃO
                 $description_lg = $this->apiGptTranslate($request->description);
-                $data = json_decode($description_lg);
-                $descriptions_lg = $data->choices[0]->message->content;
-                ////////////
+                $response = json_decode($description_lg, true); 
+                if (isset($response['error'])) {
+                    // erro na resposta da API
+                    return redirect(route('dashboard', ['locale' => 'pt']))->with('error', 'Erro ao criar o prato');
+                } else {
+                    if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']))) {
+                        unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_1']));
+                    }
+                    if (file_exists(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']))) {
+                        unlink(public_path('images/imagesdish/'.json_decode($dish->images, true)['image_2']));
+                    }
+                    $images['image_2'] = $this->imageTreat($request->image_2, 'imagesdish/'); 
+                    $images['image_1'] = $this->imageTreat($request->image_1, 'imagesdish/'); 
 
-                Dish::where('id', $dish_id)->update([
-                    'name' => $request->name,
-                    'images' => $imagesJson,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ]);
-                $updateInfoArray = [
-                    'name' => $request->name,
-                    'images' => $imagesJson,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ];
+                    $imagesJson = json_encode($images);
+                    $data = json_decode($description_lg);
+                    $descriptions_lg = $data->choices[0]->message->content;
+                    ////////////
+
+                    Dish::where('id', $dish_id)->update([
+                        'name' => $request->name,
+                        'images' => $imagesJson,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ]);
+                    $updateInfoArray = [
+                        'name' => $request->name,
+                        'images' => $imagesJson,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ];
+                }
             }
         }
 
@@ -311,23 +344,29 @@ class DishController extends Controller
             }else{//Mudou a descrição
                 //SISTEMA DE TRADUÇÃO
                 $description_lg = $this->apiGptTranslate($request->description);
-                $data = json_decode($description_lg);
-                $descriptions_lg = $data->choices[0]->message->content;
-                ////////////
-                Dish::where('id', $dish_id)->update([
-                    'name' => $request->name,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ]);
-                $updateInfoArray = [
-                    'name' => $request->name,
-                    'description' => $descriptions_lg,
-                    'price' => $request->price,
-                    'type' => $request->type,
-                    'numMenu' => $request->numMenu,
-                ];
+                $response = json_decode($description_lg, true); 
+                if (isset($response['error'])) {
+                    // erro na resposta da API
+                    return redirect(route('dashboard', ['locale' => 'pt']))->with('error', 'Erro ao criar o prato');
+                } else {
+                    $data = json_decode($description_lg);
+                    $descriptions_lg = $data->choices[0]->message->content;
+                    ////////////
+                    Dish::where('id', $dish_id)->update([
+                        'name' => $request->name,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ]);
+                    $updateInfoArray = [
+                        'name' => $request->name,
+                        'description' => $descriptions_lg,
+                        'price' => $request->price,
+                        'type' => $request->type,
+                        'numMenu' => $request->numMenu,
+                    ];
+                }
             }
         }
         
