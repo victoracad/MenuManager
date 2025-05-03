@@ -2,9 +2,33 @@
 
 ## 📸 Imagens do Projeto
 Aqui estão algumas capturas de tela do projeto: </br>
+## DASHBOARD
+*<img  src="https://drive.google.com/uc?export=view&id=1-xLqa9FJksBmmI_wq5yfko0lFKZZ8Hi4" alt="Tela de Dashboard" width="800px">*
+## CATEGORIAS
+*<img  src="https://drive.google.com/uc?export=view&id=1-xb9V6sNzc7mnBYq5LpD-3vdZ7p2i7rc" alt="Tela de categorias" width="800px">*
+## CRIAR PRATO
+*<img  src="https://drive.google.com/uc?export=view&id=1-w_-zSd5T6Ht8pdCPbC9qMh1PFF7vPCu" alt="Tela de criar prato" width="800px">*
+## LISTAR PRATOS
+*<img  src="https://drive.google.com/uc?export=view&id=10cstzbdBji3B6PrGu4kGwGf0qDwPMmNB" alt="Tela de listar pratos" width="800px">*
+## GERENTES
+*<img  src="https://drive.google.com/uc?export=view&id=10gkkU04zWhxwqva97FTt3U3amzrod6dF" alt="Tela de gerentes" width="800px">*
+## LOGS
+*<img  src="https://drive.google.com/uc?export=view&id=10jQfrekWlgkFeOg1OjGOZ0ftzWAy5fcG" alt="Tela de logs" width="800px">*
+## SOBRE
+*<img  src="https://drive.google.com/uc?export=view&id=10l5KXvgQRFEUHBSB4LgpAz9qjXqeM8__" alt="Tela de logs" width="800px">*
+## CLIENTE - HOME 
+*<img  src="https://drive.google.com/uc?export=view&id=10xCVBW1DpD_sJ-zZVcRNBC8juMiN50BL" alt="Tela de logs" width="300px">*
+## CLIENTE - SIDEBAR 
+*<img  src="https://drive.google.com/uc?export=view&id=10tTlRHTJnTKT0ZbQrSHYgQl061akqXqz" alt="Tela de logs" width="300px">*
+## CLIENTE - LISTAR PRATO
+*<img  src="https://drive.google.com/uc?export=view&id=10tMZlMIQSaQeDofZFO10RP7SlE7ORuQB" alt="Tela de logs" width="300px">*
+## CLIENTE - APRESENTAR PRATO
+*<img  src="https://drive.google.com/uc?export=view&id=10nROYJsXq75VqPkb3hyrZp-OJRZZuJ9G" alt="Tela de logs" width="300px">*
+# 📸 Casos de usos
+Casos de usos do projeto: </br> 
+*<img  src="https://drive.google.com/uc?export=view&id=1190SIyN6teA05GvAppm1X5kw6HnRoMpf" alt="Tela de logs" width="800px">*
 
 ---
-
 ## Descrição
 O projeto visa o desenvolvimento de um sistema de gerenciamento de pratos para um cardápio online, com foco na manutenção de um cardápio dinâmico e na melhoria da compreensão de clientes estrangeiros. A proposta é integrar um cardápio digital a um sistema web, permitindo que o gerente edite qualquer item do cardápio. Além disso, o sistema oferece a possibilidade de visualizar o cardápio em diferentes idiomas, otimizando a gestão e oferecendo maior acessibilidade para clientes internacionais. A solução pode ser adaptada para diversos estabelecimentos do ramo alimentício.
 
