@@ -24,6 +24,9 @@ Aqui estão algumas capturas de tela do projeto: </br>
 *<img  src="https://drive.google.com/uc?export=view&id=10tMZlMIQSaQeDofZFO10RP7SlE7ORuQB" alt="Tela de logs" width="300px">*
 ## CLIENTE - APRESENTAR PRATO
 *<img  src="https://drive.google.com/uc?export=view&id=10nROYJsXq75VqPkb3hyrZp-OJRZZuJ9G" alt="Tela de logs" width="300px">*
+# 📸 Casos de usos
+Casos de usos do projeto: </br> 
+*<img  src="https://drive.google.com/uc?export=view&id=1190SIyN6teA05GvAppm1X5kw6HnRoMpf" alt="Tela de logs" width="800px">*
 
 ---
 ## Descrição
